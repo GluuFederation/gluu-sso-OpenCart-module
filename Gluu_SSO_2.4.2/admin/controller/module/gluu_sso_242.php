@@ -118,12 +118,18 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['scriptName'] = $this->language->get('scriptName');
         $data['next'] = $this->language->get('next');
         $data['resetConfig'] = $this->language->get('resetConfig');
+        $data['serverConfig'] = $this->language->get('serverConfig');
         $data['allScopes'] = $this->language->get('allScopes');
         $data['name'] = $this->language->get('name');
         $data['or'] = $this->language->get('or');
         $data['isExist'] = $this->language->get('isExist');
         $data['delete'] = $this->language->get('delete');
         $data['addScopes'] = $this->language->get('addScopes');
+        $data['default'] = $this->language->get('Default');
+        $data['Height'] = $this->language->get('Height');
+        $data['Square'] = $this->language->get('Square');
+        $data['Preview'] = $this->language->get('Preview');
+        $data['Shape'] = $this->language->get('Shape');
         $data['DisplayName'] = $this->language->get('DisplayName');
         $data['ACRvalue'] = $this->language->get('ACRvalue');
         $data['Image'] = $this->language->get('Image');
@@ -158,7 +164,7 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['iconCustomColor'] = $this->gluu_db_query_select('iconCustomColor');
 
         $data['base_url'] = HTTPS_SERVER;
-
+        $data['action'] = $this->url->link('module/gluu_sso_242', 'token=' . $this->session->data['token'], 'SSL');
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
