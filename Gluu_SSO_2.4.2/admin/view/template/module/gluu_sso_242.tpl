@@ -1,5 +1,89 @@
 <?php echo $header; ?>
+<style type="text/css">
+    .btn-success{
+        background-color: greenyellow !important;
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+    .network_name {
+        display: inline;
+        margin-left: 10px;
+    }
 
+    .panel-body .nav-tabs .active > a {
+        background-color: greenyellow !important;
+    }
+
+    .required_hide {
+        color: #999;
+    }
+
+    .theme_block {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        height: 165px;
+        overflow: auto;
+    }
+
+    .theme_block .theme_title {
+        font-size: 20px;
+        float: left;
+    }
+
+    .theme_block .btn_apply {
+        float: right;
+    }
+
+    .theme_block .sa_frame {
+        float: left;
+        width: 100%;
+        margin: 15px 0;
+        padding: 0 3px;
+    }
+
+    .theme_block.active {
+        border: 3px solid #1872a2;
+    }
+
+    .fieldset_right {
+        float: right;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .fieldset_right input {
+        margin-right: 5px;
+    }
+
+    .theme_block .check_theme_applied {
+        float: right;
+        font-size: 30px;
+        color: greenyellow;
+        line-height: 20px;
+        margin-left: 15px;
+    }
+
+    .theme_block .theme_size {
+        display: inline-block;
+        margin-left: 35px;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .theme_block .btn_custom {
+        float: right;
+        margin-right: 3px;
+        background-color: #aaa;
+        color: #FFF;
+        border-color: #999;
+    }
+
+    .theme_block .btn_custom:hover {
+        background-color: #999;
+    }
+</style>
 <?php echo $column_left; ?>
 <div id="content">
     <div class="page-header">
@@ -388,5 +472,288 @@
         </div>
     </div>
 </div>
+<script>
+    var $m = jQuery.noConflict();
+    $m(document).ready(function () {
+        $oxd_id = "<?php echo $oxd_id; ?>";
+        if ($oxd_id) {
+            voiddisplay("#socialsharing");
+            setactive('social-sharing-setup');
+        } else {
+            setactive('account_setup');
+        }
+        $m(".navbar a").click(function () {
+            $id = $m(this).parent().attr('id');
+            setactive($id);
+            $href = $m(this).data('method');
+            voiddisplay($href);
+        });
 
+        $m('#error-cancel').click(function () {
+            $error = "";
+            $m(".error-msg").css("display", "none");
+        });
+        $m('#success-cancel').click(function () {
+            $success = "";
+            $m(".success-msg").css("display", "none");
+        });
+
+        $m(".test").click(function () {
+            $m(".mo2f_thumbnail").hide();
+            $m("#twofactorselect").show();
+            $m("#test_2factor").val($m(this).data("method"));
+            $m("#mo2f_2factor_test_form").submit();
+        });
+    });
+    function setactive($id) {
+        $m(".navbar-tabs>li").removeClass("active");
+        $m("#minisupport").show();
+        $id = '#' + $id;
+        $m($id).addClass("active");
+    }
+    function voiddisplay($href) {
+        $m(".page").css("display", "none");
+        $m($href).css("display", "block");
+    }
+    function mo2f_valid(f) {
+        !(/^[a-zA-Z?,.\(\)\/@ 0-9]*$/).test(f.value) ? f.value = f.value.replace(/[^a-zA-Z?,.\(\)\/@ 0-9]/, '') : null;
+    }
+
+    var tempHorSize = '<?php echo $iconCustomSize ?>';
+    var tempHorTheme = '<?php echo $loginTheme ?>';
+    var tempHorCustomTheme = '<?php echo $loginCustomTheme ?>';
+    var tempHorCustomColor = '<?php echo $iconCustomColor ?>';
+    var tempHorSpace = '<?php echo $iconSpace ?>';
+    var tempHorHeight = '<?php echo $iconCustomHeight ?>';
+    gluuOxLoginPreview(setSizeOfIcons(), tempHorTheme, tempHorCustomTheme, tempHorCustomColor, tempHorSpace, tempHorHeight);
+    checkLoginButton();
+
+    function setLoginTheme() {
+        return jQuery('input[name=gluuoxd_openid_login_theme]:checked', '#form-apps').val();
+    }
+    function setLoginCustomTheme() {
+        return jQuery('input[name=gluuoxd_openid_login_custom_theme]:checked', '#form-apps').val();
+    }
+    function setSizeOfIcons() {
+        if ((jQuery('input[name=gluuoxd_openid_login_theme]:checked', '#form-apps').val()) == 'longbutton') {
+            return document.getElementById('gluuox_login_icon_width').value;
+        } else {
+            return document.getElementById('gluuox_login_icon_size').value;
+        }
+    }
+    function gluuOxLoginPreview(t, r, l, p, n, h) {
+
+        if (l == 'default') {
+            if (r == 'longbutton') {
+                var a = "btn-defaulttheme";
+                jQuery("." + a).css("width", t + "px");
+                if (h > 26) {
+                    jQuery("." + a).css("height", "26px");
+                    jQuery("." + a).css("padding-top", (h - 26) / 2 + "px");
+                    jQuery("." + a).css("padding-bottom", (h - 26) / 2 + "px");
+                } else {
+                    jQuery("." + a).css("height", h + "px");
+                    jQuery("." + a).css("padding-top", (h - 26) / 2 + "px");
+                    jQuery("." + a).css("padding-bottom", (h - 26) / 2 + "px");
+                }
+                jQuery(".fa").css("padding-top", (h - 35) + "px");
+                jQuery("." + a).css("margin-bottom", n + "px");
+            } else {
+                var a = "gluuox_login_icon_preview";
+                jQuery("." + a).css("margin-left", n + "px");
+                if (r == "circle") {
+                    jQuery("." + a).css({height: t, width: t});
+                    jQuery("." + a).css("borderRadius", "999px");
+                } else if (r == "oval") {
+                    jQuery("." + a).css("borderRadius", "5px");
+                    jQuery("." + a).css({height: t, width: t});
+                } else if (r == "square") {
+                    jQuery("." + a).css("borderRadius", "0px");
+                    jQuery("." + a).css({height: t, width: t});
+                }
+            }
+        }
+        else if (l == 'custom') {
+            if (r == 'longbutton') {
+                var a = "btn-customtheme";
+                jQuery("." + a).css("width", (t) + "px");
+                if (h > 26) {
+                    jQuery("." + a).css("height", "26px");
+                    jQuery("." + a).css("padding-top", (h - 26) / 2 + "px");
+                    jQuery("." + a).css("padding-bottom", (h - 26) / 2 + "px");
+                } else {
+                    jQuery("." + a).css("height", h + "px");
+                    jQuery("." + a).css("padding-top", (h - 26) / 2 + "px");
+                    jQuery("." + a).css("padding-bottom", (h - 26) / 2 + "px");
+                }
+                jQuery("." + a).css("margin-bottom", n + "px");
+                jQuery("." + a).css("background", p);
+            } else {
+                var a = "gluuOx_custom_login_icon_preview";
+                jQuery("." + a).css({height: t - 8, width: t});
+                jQuery("." + a).css("padding-top", "8px");
+                jQuery("." + a).css("margin-left", n + "px");
+                jQuery("." + a).css("background", p);
+
+                if (r == "circle") {
+                    jQuery("." + a).css("borderRadius", "999px");
+                } else if (r == "oval") {
+                    jQuery("." + a).css("borderRadius", "5px");
+                } else if (r == "square") {
+                    jQuery("." + a).css("borderRadius", "0px");
+                }
+                jQuery("." + a).css("font-size", (t - 16) + "px");
+            }
+        }
+        previewLoginIcons();
+    }
+    function checkLoginButton() {
+        if (document.getElementById('iconwithtext').checked) {
+            if (setLoginCustomTheme() == 'default') {
+                jQuery(".gluuox_login_icon_preview").hide();
+                jQuery(".gluuOx_custom_login_icon_preview").hide();
+                jQuery(".btn-customtheme").hide();
+                jQuery(".btn-defaulttheme").show();
+            } else if (setLoginCustomTheme() == 'custom') {
+                jQuery(".gluuox_login_icon_preview").hide();
+                jQuery(".gluuOx_custom_login_icon_preview").hide();
+                jQuery(".btn-defaulttheme").hide();
+                jQuery(".btn-customtheme").show();
+            }
+            jQuery("#commontheme").hide();
+            jQuery(".longbuttontheme").show();
+        }
+        else {
+            if (setLoginCustomTheme() == 'default') {
+                jQuery(".gluuox_login_icon_preview").show();
+                jQuery(".btn-defaulttheme").hide();
+                jQuery(".btn-customtheme").hide();
+                jQuery(".gluuOx_custom_login_icon_preview").hide();
+            } else if (setLoginCustomTheme() == 'custom') {
+                jQuery(".gluuox_login_icon_preview").hide();
+                jQuery(".gluuOx_custom_login_icon_preview").show();
+                jQuery(".btn-defaulttheme").hide();
+                jQuery(".btn-customtheme").hide();
+            }
+            jQuery("#commontheme").show();
+            jQuery(".longbuttontheme").hide();
+        }
+
+        previewLoginIcons();
+    }
+    function previewLoginIcons() {
+        var flag = 0;
+    <?php foreach($custom_scripts as $custom_script):?>
+        if (document.getElementById('<?php echo $custom_script["value"];?>_enable').checked) {
+            flag = 1;
+            if (document.getElementById('gluuoxd_openid_login_default_radio').checked && !document.getElementById('iconwithtext').checked)
+                jQuery("#gluuox_login_icon_preview_<?php echo $custom_script['value'];?>").show();
+            if (document.getElementById('gluuoxd_openid_login_custom_radio').checked && !document.getElementById('iconwithtext').checked)
+                jQuery("#gluuOx_custom_login_icon_preview_<?php echo $custom_script['value'];?>").show();
+            if (document.getElementById('gluuoxd_openid_login_default_radio').checked && document.getElementById('iconwithtext').checked)
+                jQuery("#gluuox_login_button_preview_<?php echo $custom_script['value'];?>").show();
+            if (document.getElementById('gluuoxd_openid_login_custom_radio').checked && document.getElementById('iconwithtext').checked)
+                jQuery("#gluuOx_custom_login_button_preview_<?php echo $custom_script['value'];?>").show();
+        }
+        else if (!document.getElementById('<?php echo $custom_script["value"];?>_enable').checked) {
+            jQuery("#gluuox_login_icon_preview_<?php echo $custom_script['value'];?>").hide();
+            jQuery("#gluuOx_custom_login_icon_preview_<?php echo $custom_script['value'];?>").hide();
+            jQuery("#gluuox_login_button_preview_<?php echo $custom_script['value'];?>").hide();
+            jQuery("#gluuOx_custom_login_button_preview_<?php echo $custom_script['value'];?>").hide();
+        }
+    <?php endforeach;?>
+        if (flag) {
+            jQuery("#no_apps_text").hide();
+        } else {
+            jQuery("#no_apps_text").show();
+        }
+
+
+
+    }
+
+    var selectedApps = [];
+    function setTheme() {
+        return jQuery('input[name=gluuoxd_openid_share_theme]:checked', '#settings_form').val();
+    }
+    function setCustomTheme() {
+        return jQuery('input[name=gluuoxd_openid_share_custom_theme]:checked', '#settings_form').val();
+    }
+    function gluuOxLoginSizeValidate(e) {
+        var t = parseInt(e.value.trim());
+        t > 60 ? e.value = 60 : 20 > t && (e.value = 20);
+        reloadLoginPreview();
+    }
+    function gluuOxLoginSpaceValidate(e) {
+        var t = parseInt(e.value.trim());
+        t > 60 ? e.value = 60 : 0 > t && (e.value = 0);
+        reloadLoginPreview();
+    }
+    function gluuOxLoginWidthValidate(e) {
+        var t = parseInt(e.value.trim());
+        t > 1000 ? e.value = 1000 : 140 > t && (e.value = 140)
+        reloadLoginPreview();
+    }
+    function gluuOxLoginHeightValidate(e) {
+        var t = parseInt(e.value.trim());
+        t > 100 ? e.value = 100 : 10 > t && (e.value = 10)
+        reloadLoginPreview();
+    }
+    function reloadLoginPreview() {
+        if (setLoginTheme() == 'longbutton')
+            gluuOxLoginPreview(document.getElementById('gluuox_login_icon_width').value, setLoginTheme(), setLoginCustomTheme(), document.getElementById('gluuox_login_icon_custom_color').value, document.getElementById('gluuox_login_icon_space').value,
+                    document.getElementById('gluuox_login_icon_height').value);
+        else
+            gluuOxLoginPreview(document.getElementById('gluuox_login_icon_size').value, setLoginTheme(), setLoginCustomTheme(), document.getElementById('gluuox_login_icon_custom_color').value, document.getElementById('gluuox_login_icon_space').value);
+    }
+
+    jQuery('#adding').click(function() {
+        var wrapper = "<tr class='wrapper-tr'>" +
+                "<td class='value'><input type='text' placeholder='Input scope name' name='scope_name[]'></td>" +
+                "<td class='value'><button class='remove'>Remove</button></td>" +
+                "</tr>";
+        jQuery(wrapper).find('.remove').on('click', function() {
+            jQuery(this).parent('.wrapper-tr').remove();
+        });
+        jQuery(wrapper).appendTo('.form-list5');
+    });
+    jQuery('.form-list5').on('click', 'button.remove', function() {
+        if (jQuery('.wrapper-tr').length > 1) {
+            jQuery(this).parents('.wrapper-tr').remove();
+        } else {
+            alert('at least one image need to be selected');
+        }
+    });
+
+    var j = jQuery('.count_scripts').length + 1;
+    var d = jQuery('.count_scripts').length + 1;
+    jQuery('#adder').click(function() {
+        var wrapperer = "<tr class='count_scopes wrapper-trr'>" +
+                "<td  class='value'><input style='width: 200px !important;' placeholder='Display name (example Google+)' type='text' name='name_in_site_"+j+"'></td>" +
+                "<td  class='value'><input style='width: 270px !important;' placeholder='ACR Value (script name in the Gluu Server)' type='text' name='name_in_gluu_"+j+"'></td>" +
+                "<td class='value'><input type='file' accept='image/png' name='images_"+j+"'></td>" +
+                "<td class='value'><button class='removeer'>Remove</button></td>" +
+                "</tr>";
+        jQuery(wrapperer).find('.removeer').on('click', function() {
+            jQuery(this).parent('.wrapper-trr').remove();
+
+        });
+        jQuery('#count_scripts').val(d);
+        j++;
+        d++;
+
+        jQuery(wrapperer).appendTo('.form-list1');
+
+    });
+    jQuery('.form-list1').on('click', 'button.removeer', function() {
+        if (j > 2) {
+            jQuery(this).parents('.wrapper-trr').remove();
+            j--;
+        }
+    });
+
+    jQuery("#show_script_table").click(function(){
+        jQuery("#custom_script_table").toggle();
+    });
+</script>
 <?php echo $footer; ?>
