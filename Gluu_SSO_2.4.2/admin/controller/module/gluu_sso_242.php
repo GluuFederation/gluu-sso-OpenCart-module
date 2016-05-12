@@ -76,6 +76,94 @@ class ControllerModuleGluuSSO242 extends Controller
     */
     public function index() {
 
+        $this->load->language('module/socl_login');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+        $this->document->addStyle('view/javascript/gluu_sso_242/gluu_sso_242.css');
+
+        $this->load->model('setting/setting');
+
+        $data['heading_title'] = $this->language->get('heading_title');
+        $data['text_edit'] = $this->language->get('text_edit');
+
+        $data['General'] = $this->language->get('General');
+        $data['OpenIDConnect'] = $this->language->get('OpenIDConnect');
+        $data['OpenCartConfig'] = $this->language->get('OpenCartConfig');
+        $data['helpTrouble'] = $this->language->get('helpTrouble');
+        $data['gluu_sso'] = $this->language->get('gluu_sso');
+        $data['messageConnectProvider'] = $this->language->get('messageConnectProvider');
+        $data['messageSiteRegisteredSuccessful'] = $this->language->get('messageSiteRegisteredSuccessful');
+        $data['messageScopeDeletedSuccessful'] = $this->language->get('messageScopeDeletedSuccessful');
+        $data['messageConfigurationsDeletedSuccessful'] = $this->language->get('messageConfigurationsDeletedSuccessful');
+        $data['messageScriptDeletedSuccessful'] = $this->language->get('messageScriptDeletedSuccessful');
+        $data['messageYourConfiguration'] = $this->language->get('messageYourConfiguration');
+        $data['messageOpenIDConnectConfiguration'] = $this->language->get('messageOpenIDConnectConfiguration');
+        $data['messageSorryUploading'] = $this->language->get('messageSorryUploading');
+        $data['messageSwitchedOn'] = $this->language->get('messageSwitchedOn');
+        $data['problemImapConnection'] = $this->language->get('problemImapConnection');
+        $data['necessaryToFill'] = $this->language->get('necessaryToFill');
+        $data['file_text'] = $this->language->get('file_text');
+        $data['registerMessageConnectProvider'] = $this->language->get('registerMessageConnectProvider');
+        $data['linkToGluu'] = $this->language->get('linkToGluu');
+        $data['Instructions'] = $this->language->get('Instructions');
+        $data['adminEmail'] = $this->language->get('adminEmail');
+        $data['admin_email'] = $this->config->get('config_email');
+        $data['hederGluu'] = $this->language->get('hederGluu');
+        $data['portNumber'] = $this->language->get('portNumber');
+        $data['Addacr'] = $this->language->get('Addacr');
+        $data['Save'] = $this->language->get('Save');
+        $data['EnterportNumber'] = $this->language->get('EnterportNumber');
+        $data['InputScopeName'] = $this->language->get('InputScopeName');
+        $data['exampleGoogle'] = $this->language->get('exampleGoogle');
+        $data['scriptName'] = $this->language->get('scriptName');
+        $data['next'] = $this->language->get('next');
+        $data['resetConfig'] = $this->language->get('resetConfig');
+        $data['allScopes'] = $this->language->get('allScopes');
+        $data['name'] = $this->language->get('name');
+        $data['or'] = $this->language->get('or');
+        $data['isExist'] = $this->language->get('isExist');
+        $data['delete'] = $this->language->get('delete');
+        $data['addScopes'] = $this->language->get('addScopes');
+        $data['DisplayName'] = $this->language->get('DisplayName');
+        $data['ACRvalue'] = $this->language->get('ACRvalue');
+        $data['Image'] = $this->language->get('Image');
+        $data['multipleCustomScripts'] = $this->language->get('multipleCustomScripts');
+        $data['allCustomScripts'] = $this->language->get('allCustomScripts');
+        $data['BothFields'] = $this->language->get('BothFields');
+        $data['OXDConfiguration'] = $this->language->get('OXDConfiguration');
+        $data['GluuLoginConfig'] = $this->language->get('GluuLoginConfig');
+        $data['Theme'] = $this->language->get('Theme');
+        $data['Round'] = $this->language->get('Round');
+        $data['NoApps'] = $this->language->get('NoApps');
+        $data['LongButton'] = $this->language->get('LongButton');
+        $data['CustomBackground'] = $this->language->get('CustomBackground');
+        $data['RoundedEdges'] = $this->language->get('RoundedEdges');
+        $data['Width'] = $this->language->get('Width');
+        $data['SpaceBetweenIcons'] = $this->language->get('SpaceBetweenIcons');
+        $data['SizeofIcons'] = $this->language->get('SizeofIcons');
+        $data['CustomizeLoginIcons'] = $this->language->get('CustomizeLoginIcons');
+        $data['CustomizeShape'] = $this->language->get('CustomizeShape');
+        $data['CustomizeYourLogin'] = $this->language->get('CustomizeYourLogin');
+        $data['manageAuthentication'] = $this->language->get('manageAuthentication');
+        $data['doocumentation242'] = $this->language->get('doocumentation242');
+        $data['get_scopes'] =   json_decode($this->gluu_db_query_select('scopes'),true);
+        $data['oxd_config'] =   json_decode($this->gluu_db_query_select('oxd_config'),true);
+        $data['custom_scripts'] =   json_decode($this->gluu_db_query_select('custom_scripts'),true);
+        $data['iconSpace'] = $this->gluu_db_query_select('iconSpace');
+        $data['iconCustomSize'] = $this->gluu_db_query_select('iconCustomSize');
+        $data['iconCustomWidth'] = $this->gluu_db_query_select('iconCustomWidth');
+        $data['iconCustomHeight'] = $this->gluu_db_query_select('iconCustomHeight');
+        $data['loginCustomTheme'] = $this->gluu_db_query_select('loginCustomTheme');
+        $data['loginTheme'] = $this->gluu_db_query_select('loginTheme');
+        $data['iconCustomColor'] = $this->gluu_db_query_select('iconCustomColor');
+
+        $data['base_url'] = HTTPS_SERVER;
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('module/gluu_sso_242.tpl', $data));
     }
 
     /*
