@@ -76,10 +76,10 @@ class ControllerModuleGluuSSO242 extends Controller
     */
     public function index() {
 
-        $this->load->language('module/socl_login');
+        $this->load->language('module/gluu_sso_242');
 
         $this->document->setTitle($this->language->get('heading_title'));
-        $this->document->addStyle('view/javascript/gluu_sso_242/gluu_sso_242.css');
+        $this->document->addStyle('view/stylesheet/gluu_sso_242/gluu_sso_242.css');
 
         $this->load->model('setting/setting');
 
@@ -162,8 +162,8 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['loginCustomTheme'] = $this->gluu_db_query_select('loginCustomTheme');
         $data['loginTheme'] = $this->gluu_db_query_select('loginTheme');
         $data['iconCustomColor'] = $this->gluu_db_query_select('iconCustomColor');
-
         $data['base_url'] = HTTPS_SERVER;
+        $data['oxd_id'] = 'oxd_id';
         $data['action'] = $this->url->link('module/gluu_sso_242', 'token=' . $this->session->data['token'], 'SSL');
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
