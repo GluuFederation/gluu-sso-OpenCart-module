@@ -23,10 +23,10 @@ class ControllerModuleGluuSSO242 extends Controller
         }
         if(!json_decode($this->gluu_db_query_select('custom_scripts'),true)){
             $this->gluu_db_query_insert('custom_scripts',json_encode(array(
-                        array('name'=>'Google','image'=>'view/image/icons/google.png','value'=>'gplus'),
-                        array('name'=>'Basic','image'=>'view/image/icons/basic.png','value'=>'basic'),
-                        array('name'=>'Duo','image'=>'view/image/icons/duo.png','value'=>'duo'),
-                        array('name'=>'U2F token','image'=>'view/image/icons/u2f.png','value'=>'u2f')
+                        array('name'=>'Google','image'=>'view/image/gluu_sso_242/google.png','value'=>'gplus'),
+                        array('name'=>'Basic','image'=>'view/image/gluu_sso_242/basic.png','value'=>'basic'),
+                        array('name'=>'Duo','image'=>'view/image/gluu_sso_242/duo.png','value'=>'duo'),
+                        array('name'=>'U2F token','image'=>'view/image/gluu_sso_242/u2f.png','value'=>'u2f')
                     )
                 )
             );
