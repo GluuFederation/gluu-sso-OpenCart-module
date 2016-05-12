@@ -3,15 +3,10 @@
 $_['heading_title'] = 'Gluu SSO 2.4.2';
 $_['text_module'] = 'Module';
 $_['text_edit'] = 'Edit Gluu SSO 2.4.2 Module';
-$_['tab_common_settings'] = 'General';
-$_['tab_api_settings'] = 'OpenID Connect Configuration';
-$_['tab_manage_network'] = 'OpenCart Configuration';
-$_['tab_manage_theme'] = 'Help & Troubleshooting';
-$_['text_success']     = 'Success: You have modified module Gluu SSO 2.4.2!';
 $_['gluu_sso'] = 'Gluu SSO 2.4.2';
 $_['General'] = 'General';
 $_['OpenIDConnect'] = 'OpenID Connect Configuration';
-$_['rConfig'] = 'OpenCart Configuration';
+$_['OpenCartConfig'] = 'OpenCart Configuration';
 $_['helpTrouble'] = 'Help & Troubleshooting';
 $_['messageConnectProvider'] = 'Please enter the details of your OpenID Connect Provider.';
 $_['messageSiteRegisteredSuccessful'] = 'Site registered Successful. You can configure Gluu and Social Login now.';
