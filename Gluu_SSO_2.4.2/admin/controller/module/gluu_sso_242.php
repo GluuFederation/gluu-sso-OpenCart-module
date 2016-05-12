@@ -162,6 +162,7 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['loginCustomTheme'] = $this->gluu_db_query_select('loginCustomTheme');
         $data['loginTheme'] = $this->gluu_db_query_select('loginTheme');
         $data['iconCustomColor'] = $this->gluu_db_query_select('iconCustomColor');
+        $data['selected_icon'] = $this->selected_icon();
         $data['base_url'] = HTTPS_SERVER;
         $data['oxd_id'] = 'oxd_id';
         $data['action'] = $this->url->link('module/gluu_sso_242', 'token=' . $this->session->data['token'], 'SSL');
@@ -198,6 +199,25 @@ class ControllerModuleGluuSSO242 extends Controller
         return  $this->db->query("UPDATE `" . DB_PREFIX . "gluu_table` SET `gluu_value` = '".$gluu_value."' WHERE `gluu_action` LIKE '".$gluu_action."';");
     }
 
+    /*
+     * Html for selected custom script icons.
+    */
+    public function selected_icon(){
+        $oxd_id = $this->gluu_db_query_select('oxd_id');
+        $custom_scripts =   json_decode($this->gluu_db_query_select('custom_scripts'),true);
+        $html = '';
+        foreach ($custom_scripts as $custom_script) {
+
+            $html.='<td style="width:25%"><input type="checkbox"';
+            if (!$oxd_id) {
+                $html.=' disabled ';
+            }
+            $html.='id="'.$custom_script['value'].'_enable" class="app_enable" name="gluuoxd_openid_'.$custom_script['value'].'_enable" value="1" onchange="previewLoginIcons();" ';
+            if ($this->gluu_db_query_select($custom_script['value']."Enable")) $html.=" checked ";
+            $html.="/><b>".$custom_script['name']."</b></td>";
+        }
+        return $html;
+    }
 }
 
 ?>
