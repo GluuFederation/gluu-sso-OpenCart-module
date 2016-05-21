@@ -18,15 +18,21 @@ class ControllerModuleGluuSSO242 extends Controller
                             UNIQUE(`gluu_action`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
+        $query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX ."setting` WHERE `key` = 'socl_login_status' ;");
+        if(!$query->num_rows){
+
+            $this->db->query("INSERT INTO `" . DB_PREFIX ."setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'gluu_sso242', 'socl_login_status', '0', '0');");
+        }
+
         if(!json_decode($this->gluu_db_query_select('scopes'),true)){
             $this->gluu_db_query_insert('scopes',json_encode(array("openid","profile","email","address","clientinfo","mobile_phone","phone")));
         }
         if(!json_decode($this->gluu_db_query_select('custom_scripts'),true)){
             $this->gluu_db_query_insert('custom_scripts',json_encode(array(
-                        array('name'=>'Google','image'=>'view/image/gluu_sso_242/google.png','value'=>'gplus'),
-                        array('name'=>'Basic','image'=>'view/image/gluu_sso_242/basic.png','value'=>'basic'),
-                        array('name'=>'Duo','image'=>'view/image/gluu_sso_242/duo.png','value'=>'duo'),
-                        array('name'=>'U2F token','image'=>'view/image/gluu_sso_242/u2f.png','value'=>'u2f')
+                        array('name'=>'Google','image'=>HTTP_CATALOG.'image/gluu_icon/google.png','value'=>'gplus'),
+                        array('name'=>'Basic','image'=>HTTP_CATALOG.'image/gluu_icon/basic.png','value'=>'basic'),
+                        array('name'=>'Duo','image'=>HTTP_CATALOG.'image/gluu_icon/duo.png','value'=>'duo'),
+                        array('name'=>'U2F token','image'=>HTTP_CATALOG.'image/gluu_icon/u2f.png','value'=>'u2f')
                     )
                 )
             );
@@ -36,13 +42,13 @@ class ControllerModuleGluuSSO242 extends Controller
                         "oxd_host_ip" => '127.0.0.1',
                         "oxd_host_port" =>8099,
                         "admin_email" => '',
-                        "authorization_redirect_uri" => $base_url.'?_action=plugin.gluu_sso-login-from-gluu',
-                        "logout_redirect_uri" => $base_url.'?_action=plugin.gluu_sso-login-from-gluu',
+                        "authorization_redirect_uri" => $base_url.'index.php?route=module/gluu_sso242',
+                        "logout_redirect_uri" => $base_url.'index.php?route=module/gluu_sso242&logout_from_gluu=exist',
                         "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
                         "grant_types" =>["authorization_code"],
                         "response_types" => ["code"],
                         "application_type" => "web",
-                        "redirect_uris" => [ $base_url.'?_action=plugin.gluu_sso-login-from-gluu' ],
+                        "redirect_uris" => [ $base_url.'index.php?route=module/gluu_sso242' ],
                         "acr_values" => [],
                     )
                 )
@@ -68,6 +74,25 @@ class ControllerModuleGluuSSO242 extends Controller
         }
         if(!$this->gluu_db_query_select('iconCustomColor')){
             $this->gluu_db_query_insert('iconCustomColor','#0000FF');
+        }
+// Add to default positions
+        $result = $this->db->query ("SELECT layout_id FROM `" . DB_PREFIX . "layout` WHERE name IN ('Account', 'Checkout')");
+        if ($result->num_rows > 0)
+        {
+            foreach ($result->rows as $row)
+            {
+                // Prevent Duplicates
+                $this->db->query ("DELETE FROM `" . DB_PREFIX . "layout_module` WHERE layout_id = '".intval ($row['layout_id'])."' AND code = 'gluu_sso242' AND position='content_top'");
+
+                // Add Position
+                $this->db->query ("INSERT INTO `" . DB_PREFIX . "layout_module` SET layout_id = '".intval ($row['layout_id'])."', code = 'gluu_sso242', position='content_top', sort_order='1'");
+            }
+        }
+        // Callback Handler
+        if (defined ('VERSION') && version_compare (VERSION, '2.2.0', '>='))
+        {
+            $this->load->model('extension/event');
+            $this->model_extension_event->addEvent('gluu_sso242', 'catalog/controller/module/gluu_sso242/before', 'module/gluu_sso242');
         }
     }
 
