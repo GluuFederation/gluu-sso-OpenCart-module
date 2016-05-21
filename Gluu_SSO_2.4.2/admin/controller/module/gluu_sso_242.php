@@ -100,22 +100,234 @@ class ControllerModuleGluuSSO242 extends Controller
      * Module loading page
     */
     public function index() {
+        if(!empty($_SESSION['message_error'])){
+            $data['message_error'] = $_SESSION['message_error'];
+            $_SESSION['message_error'] = '';
+        }else{
+            $data['message_error'] = '';
+        }
+        if(!empty($_SESSION['message_success'])){
+            $data['message_success'] = $_SESSION['message_success'];
+            $_SESSION['message_success'] = '';
+        }else{
+            $data['message_success'] = '';
+        }
+        if(!empty($_SESSION['activ_tab'])){
+            $data['activ_tab'] = $_SESSION['activ_tab'];
+            $_SESSION['activ_tab'] = '';
+        }else{
+            $data['activ_tab'] = 'General';
+        }
 
-        $this->load->language('module/gluu_sso_242');
-
+        $base_url = HTTPS_CATALOG;
+        $this->install();
+        $this->load->language('module/gluu_sso242');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->document->addStyle('view/stylesheet/gluu_sso_242/gluu_sso_242.css');
-
         $this->load->model('setting/setting');
+
+        require_once(DIR_SYSTEM . 'library/oxd-rp/Register_site.php');
+
+        if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'general_register_page' )               !== false ) {
+            $config_option = json_encode(array(
+                "oxd_host_ip" => '127.0.0.1',
+                "oxd_host_port" =>$this->request->post['oxd_port'],
+                "admin_email" => $this->request->post['loginemail'],
+                "authorization_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso242',
+                "logout_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso242&logout_from_gluu=exist',
+                "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
+                "grant_types" =>["authorization_code"],
+                "response_types" => ["code"],
+                "application_type" => "web",
+                "redirect_uris" => [ HTTPS_CATALOG.'index.php?route=module/gluu_sso242'],
+                "acr_values" => [],
+            ));
+            $this->gluu_db_query_update('oxd_config', $config_option);
+            $config_option = array(
+                "oxd_host_ip" => '127.0.0.1',
+                "oxd_host_port" =>$this->request->post['oxd_port'],
+                "admin_email" => $this->request->post['loginemail'],
+                "authorization_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso242',
+                "logout_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso242&logout_from_gluu=exist',
+                "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
+                "grant_types" =>["authorization_code"],
+                "response_types" => ["code"],
+                "application_type" => "web",
+                "redirect_uris" => [ HTTPS_CATALOG.'index.php?route=module/gluu_sso242'],
+                "acr_values" => [],
+            );
+            $register_site = new Register_site();
+            $register_site->setRequestAcrValues($config_option['acr_values']);
+            $register_site->setRequestAuthorizationRedirectUri($config_option['authorization_redirect_uri']);
+            $register_site->setRequestRedirectUris($config_option['redirect_uris']);
+            $register_site->setRequestGrantTypes($config_option['grant_types']);
+            $register_site->setRequestResponseTypes(['code']);
+            $register_site->setRequestLogoutRedirectUri($config_option['logout_redirect_uri']);
+            $register_site->setRequestContacts([$config_option["admin_email"]]);
+            $register_site->setRequestApplicationType('web');
+            $register_site->setRequestClientLogoutUri($config_option['logout_redirect_uri']);
+            $register_site->setRequestScope($config_option['scope']);
+            $status = $register_site->request();
+
+            if(!$status['status']){
+                $_SESSION['message_error'] = $status['message'];
+                $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+            }
+            if($register_site->getResponseOxdId()){
+                $oxd_id = $register_site->getResponseOxdId();
+                if(!$this->gluu_db_query_select('oxd_id')){
+                    $this->gluu_db_query_insert('oxd_id',$oxd_id);
+                    $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '1' WHERE `key` = 'socl_login_status';");
+                }
+            }
+            $_SESSION['message_success'] = $this->language->get('messageSiteRegisteredSuccessful');
+            $_SESSION['activ_tab'] = 'General';
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+        }
+        else if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'openid_config_delete_scop' )           !== false ) {
+
+            $get_scopes =   json_decode($this->gluu_db_query_select('scopes'),true);
+            $up_cust_sc =  array();
+
+            foreach($get_scopes as $custom_scop){
+                if($custom_scop !=$_REQUEST['value_scope']){
+                    array_push($up_cust_sc,$custom_scop);
+                }
+            }
+
+            $get_scopes = json_encode($up_cust_sc);
+            $this->gluu_db_query_update('scopes', $get_scopes);
+            $_SESSION['message_success'] = $this->language->get('messageScopeDeletedSuccessful');
+            $_SESSION['activ_tab'] = 'OpenIDConnect';
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+        }
+        else if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'general_oxd_id_reset' )!== false and !empty($this->request->post['resetButton'])) {
+            $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX ."gluu_table`;");
+            $_SESSION['message_success'] = $this->language->get('messageConfigurationsDeletedSuccessful');
+            $_SESSION['activ_tab'] = 'General';
+            $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '0' WHERE `key` = 'socl_login_status';");
+
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+        }
+        else if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'openid_config_delete_custom_scripts' ) !== false ) {
+            $get_scopes =   json_decode($this->gluu_db_query_select('custom_scripts'),true);
+            $up_cust_sc =  array();
+            foreach($get_scopes as $custom_scop){
+                if($custom_scop['value'] !=$_REQUEST['value_script']){
+                    array_push($up_cust_sc,$custom_scop);
+                }
+            }
+            $get_scopes = json_encode($up_cust_sc);
+            $this->gluu_db_query_update('custom_scripts', $get_scopes);
+            $_SESSION['message_success'] = $this->language->get('messageScriptDeletedSuccessful');
+            $_SESSION['activ_tab'] = 'OpenIDConnect';
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+        }
+        else if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'opencart_config_page' )           !== false ) {
+            $this->gluu_db_query_update('loginTheme', $_REQUEST['gluuoxd_openid_login_theme']);
+            $this->gluu_db_query_update('loginCustomTheme', $_REQUEST['gluuoxd_openid_login_custom_theme']);
+            $this->gluu_db_query_update('iconSpace', $_REQUEST['gluuox_login_icon_space']);
+            $this->gluu_db_query_update('iconCustomSize', $_REQUEST['gluuox_login_icon_custom_size']);
+            $this->gluu_db_query_update('iconCustomWidth', $_REQUEST['gluuox_login_icon_custom_width']);
+            $this->gluu_db_query_update('iconCustomHeight', $_REQUEST['gluuox_login_icon_custom_height']);
+            $this->gluu_db_query_update('iconCustomColor', $_REQUEST['gluuox_login_icon_custom_color']);
+            $_SESSION['message_success'] = $this->language->get('messageYourConfiguration');
+            $_SESSION['activ_tab'] = 'OpenCartConfig';
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+        }
+        else if( isset( $this->request->post['form_key'] ) and strpos( $this->request->post['form_key'], 'openid_config_page' )                  !== false ) {
+            $_SESSION['activ_tab'] = 'OpenIDConnect';
+            $params = $this->request->post;
+            $message_success = '';
+            $message_error = '';
+            if(!empty($params['scope']) && isset($params['scope'])){
+                $oxd_config =   json_decode($this->gluu_db_query_select('oxd_config'),true);
+                $oxd_config['scope'] = $params['scope'];
+                $oxd_config = json_encode($oxd_config);
+                $this->gluu_db_query_update('oxd_config',$oxd_config);
+            }
+            if(!empty($params['scope_name']) && isset($params['scope_name'])){
+                $get_scopes =   json_decode($this->gluu_db_query_select('scopes'),true);
+                foreach($params['scope_name'] as $scope){
+                    if($scope && !in_array($scope,$get_scopes)){
+                        array_push($get_scopes, $scope);
+                    }
+                }
+                $get_scopes = json_encode($get_scopes);
+                $this->gluu_db_query_update('scopes',$get_scopes);
+            }
+
+            $custom_scripts =   json_decode($this->gluu_db_query_select('custom_scripts'),true);
+
+            foreach($custom_scripts as $custom_script){
+                $action = $custom_script['value']."Enable";
+                $value = $params['gluuoxd_openid_'.$custom_script['value'].'_enable'];
+                $typeLogin =  $this->gluu_db_query_select($custom_script['value']."Enable");
+                if(!$typeLogin){
+                    $this->gluu_db_query_insert($action,$value);
+                }
+                if($value != NULL){
+                    $this->gluu_db_query_update($action,'1');
+                }else{
+                    $this->gluu_db_query_update($action,'0');
+                }
+
+            }
+
+            if(isset($params['count_scripts'])){
+                $error_array = array();
+                $error = true;
+
+                $custom_scripts = json_decode($this->gluu_db_query_select('custom_scripts'),true);
+                for($i=1; $i<=$params['count_scripts']; $i++){
+                    if(isset($params['name_in_site_'.$i]) && !empty($params['name_in_site_'.$i]) && isset($params['name_in_gluu_'.$i]) && !empty($params['name_in_gluu_'.$i]) && isset($_FILES['images_'.$i]) && !empty($_FILES['images_'.$i])){
+                        foreach($custom_scripts as $custom_script){
+                            if($custom_script['value'] == $params['name_in_gluu_'.$i] || $custom_script['name'] == $params['name_in_site_'.$i]){
+                                $error = false;
+                                array_push($error_array, $i);
+                            }
+                        }
+                        if($error){
+                            $target_dir = HTTP_CATALOG.'image/gluu_icon';
+                            $target_file = $target_dir . basename($_FILES['images_'.$i]["name"]);
+                            if (file_exists($target_file)) {
+                                $target_file= $target_dir.$this->file_newname($target_dir, basename($_FILES['images_'.$i]["name"]));
+                            }
+                            if (move_uploaded_file($_FILES['images_'.$i]["tmp_name"], $target_file)) {
+                                array_push($custom_scripts, array('name'=>$params['name_in_site_'.$i],'image'=>$target_file,'value'=>$params['name_in_gluu_'.$i]));
+                                $custom_scripts_json = json_encode($custom_scripts);
+                                $this->gluu_db_query_update('custom_scripts', $custom_scripts_json);
+
+                            } else {
+                                $message_error.= $this->language->get('messageSorryUploading').$_FILES['images_'.$i]["name"].' '.$this->language->get('file').".<br/>";
+                                break;
+                            }
+
+                        }else{
+                            $message_error.=$this->language->get('name').' = '.$params['name_in_site_'.$i].' '.$this->language->get('or'). '  value = '. $params['name_in_gluu_'.$i] .' '.$this->language->get('isExist').'<br/>';
+                            break;
+                        }
+                    }else{
+                        if(!empty($params['name_in_site_'.$i]) || !empty($params['name_in_gluu_'.$i]) || !empty($_FILES['images_'.$i]["name"])){
+                            $message_error.=$this->language->get('necessaryToFill').'<br/>';
+                        }
+                    }
+                }
+            }
+
+            $_SESSION['message_success'] = $this->language->get('messageOpenIDConnectConfiguration');
+            $_SESSION['message_error'] = $message_error;
+
+            $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
+            exit;
+        }
 
         $data['heading_title'] = $this->language->get('heading_title');
         $data['text_edit'] = $this->language->get('text_edit');
-
         $data['General'] = $this->language->get('General');
         $data['OpenIDConnect'] = $this->language->get('OpenIDConnect');
         $data['OpenCartConfig'] = $this->language->get('OpenCartConfig');
         $data['helpTrouble'] = $this->language->get('helpTrouble');
-        $data['gluu_sso'] = $this->language->get('gluu_sso');
         $data['messageConnectProvider'] = $this->language->get('messageConnectProvider');
         $data['messageSiteRegisteredSuccessful'] = $this->language->get('messageSiteRegisteredSuccessful');
         $data['messageScopeDeletedSuccessful'] = $this->language->get('messageScopeDeletedSuccessful');
@@ -143,18 +355,12 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['scriptName'] = $this->language->get('scriptName');
         $data['next'] = $this->language->get('next');
         $data['resetConfig'] = $this->language->get('resetConfig');
-        $data['serverConfig'] = $this->language->get('serverConfig');
         $data['allScopes'] = $this->language->get('allScopes');
         $data['name'] = $this->language->get('name');
         $data['or'] = $this->language->get('or');
         $data['isExist'] = $this->language->get('isExist');
         $data['delete'] = $this->language->get('delete');
         $data['addScopes'] = $this->language->get('addScopes');
-        $data['default'] = $this->language->get('Default');
-        $data['Height'] = $this->language->get('Height');
-        $data['Square'] = $this->language->get('Square');
-        $data['Preview'] = $this->language->get('Preview');
-        $data['Shape'] = $this->language->get('Shape');
         $data['DisplayName'] = $this->language->get('DisplayName');
         $data['ACRvalue'] = $this->language->get('ACRvalue');
         $data['Image'] = $this->language->get('Image');
@@ -177,6 +383,8 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['CustomizeYourLogin'] = $this->language->get('CustomizeYourLogin');
         $data['manageAuthentication'] = $this->language->get('manageAuthentication');
         $data['doocumentation242'] = $this->language->get('doocumentation242');
+        $data['selected_icon'] = $this->selected_icon();
+
         $data['get_scopes'] =   json_decode($this->gluu_db_query_select('scopes'),true);
         $data['oxd_config'] =   json_decode($this->gluu_db_query_select('oxd_config'),true);
         $data['custom_scripts'] =   json_decode($this->gluu_db_query_select('custom_scripts'),true);
@@ -187,10 +395,19 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['loginCustomTheme'] = $this->gluu_db_query_select('loginCustomTheme');
         $data['loginTheme'] = $this->gluu_db_query_select('loginTheme');
         $data['iconCustomColor'] = $this->gluu_db_query_select('iconCustomColor');
-        $data['selected_icon'] = $this->selected_icon();
-        $data['base_url'] = HTTPS_SERVER;
-        $data['oxd_id'] = 'oxd_id';
-        $data['action'] = $this->url->link('module/gluu_sso_242', 'token=' . $this->session->data['token'], 'SSL');
+
+        $data['base_url'] = HTTPS_CATALOG;
+        $oxd_id = '';
+        if($this->gluu_db_query_select('oxd_id')){
+            $data['oxd_id'] = $this->gluu_db_query_select('oxd_id');
+        }else{
+            $data['oxd_id'] = '';
+        }
+
+        $data['action'] = $this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL');
+
+        $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
