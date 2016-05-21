@@ -1,8 +1,12 @@
 <?php
 
+// Heading
 $_['heading_title'] = 'Gluu SSO 2.4.2';
+
+// Text
 $_['text_module'] = 'Module';
 $_['text_edit'] = 'Edit Gluu SSO 2.4.2 Module';
+
 $_['gluu_sso'] = 'Gluu SSO 2.4.2';
 $_['General'] = 'General';
 $_['OpenIDConnect'] = 'OpenID Connect Configuration';
@@ -21,8 +25,10 @@ $_['problemImapConnection'] = 'Problem with imap connection, please look your im
 $_['necessaryToFill'] = 'Necessary to fill the hole row.';
 $_['file_text'] = 'file';
 $_['registerMessageConnectProvider'] = 'Register your site with an OpenID Connect Provider';
+
 $_['linkToGluu'] = 'If you do not have an OpenID Connect provider, you may want to look at the Gluu Server (
                                     <a target="_blank" href="http://www.gluu.org/docs">Like OpenCart, there is a free open source Community Edition. For more information about Gluu Server support please visit <a target="_blank" href="http://www.gluu.org">our website.</a></a>)';
+
 $_['Instructions'] = '<br/><h3>Instructions to Install oxd server</h3>
                                     <br><b>NOTE:</b> The oxd server should be installed on the same server as your OpenCart site. It is recommended that the oxd server listen only on the localhost interface, so only your local applications can reach its API"s.
                                     <ol style="list-style:decimal !important; margin: 30px">
@@ -57,7 +63,6 @@ $_['addScopes'] = 'Add scopes';
 $_['DisplayName'] = 'Display Name';
 $_['ACRvalue'] = 'ACR Value';
 $_['Image'] = 'Image';
-$_['serverConfig'] = 'server config';
 $_['multipleCustomScripts'] = 'Add multiple custom scripts';
 $_['allCustomScripts'] = 'All custom scripts';
 $_['BothFields'] = 'Both fields are required';
@@ -65,21 +70,17 @@ $_['OXDConfiguration'] = 'Please enter OXD configuration to continue.';
 $_['GluuLoginConfig'] = 'Gluu login config ';
 $_['Theme '] = 'Theme ';
 $_['Round'] = 'Round ';
-$_['default'] = 'Default ';
 $_['NoApps'] = 'No apps selected ';
 $_['LongButton '] = 'Long Button with Text ';
 $_['CustomBackground'] = 'Custom Background* ';
 $_['RoundedEdges'] = 'Rounded Edges ';
-$_['Preview'] = 'Preview :';
 $_['Width'] = 'Width:&nbsp; ';
-$_['Square'] = 'Square';
-$_['Height'] = 'Height: ';
 $_['SpaceBetweenIcons'] = 'Space between Icons ';
 $_['SizeofIcons'] = 'Size of Icons';
-$_['Shape'] = 'Shape';
 $_['CustomizeLoginIcons'] = 'Customize Login Icons';
 $_['CustomizeShape'] = 'Customize shape, theme and size of the login icons';
 $_['CustomizeYourLogin'] = 'Customize your login icons using a range of shapes and sizes. You can choose different places to display these icons and also customize redirect url after login.';
+
 $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                         <p>An OpenID Connect Provider (OP) like the Gluu Server may provide many different work flows for
                                             authentication. For example, an OP may offer password authentication, token authentication, social
@@ -107,5 +108,7 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             section--look for the "Name" field. Likewise, each custom script has a "Name", for example see the
                                             <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-custom-scripts">Manage Custom Scripts</a> section.
                                         </p>';
+
+$_['doocumentation242'] = '';
 
 ?>
