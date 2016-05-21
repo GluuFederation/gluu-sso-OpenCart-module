@@ -1,3 +1,12 @@
+.btn-success{
+    background-color: greenyellow !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+.panel-body .nav-tabs .active > a {
+    background-color: greenyellow !important;
+}
 .set_oxd_config {
     background-color: greenyellow !important;
     margin: 30px;
@@ -257,14 +266,6 @@ hr {
 
 #testQrCode {
     padding: 3% 0
-}
-
-#progress_bar {
-    background: url(http://auth.miniorange.com/moas/images/ajax-loader4.gif) no-repeat;
-    display: block;
-    margin: 3% auto;
-    height: 140px;
-    width: 140px
 }
 
 .required {
