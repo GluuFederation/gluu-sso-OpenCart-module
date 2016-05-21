@@ -18,10 +18,10 @@ class ControllerModuleGluuSSO242 extends Controller
                             UNIQUE(`gluu_action`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
-        $query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX ."setting` WHERE `key` = 'socl_login_status' ;");
+        $query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX ."setting` WHERE `key` = 'gluu_sso242_status' ;");
         if(!$query->num_rows){
 
-            $this->db->query("INSERT INTO `" . DB_PREFIX ."setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'gluu_sso242', 'socl_login_status', '0', '0');");
+            $this->db->query("INSERT INTO `" . DB_PREFIX ."setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'gluu_sso242', 'gluu_sso242_status', '0', '0');");
         }
 
         if(!json_decode($this->gluu_db_query_select('scopes'),true)){
@@ -123,7 +123,7 @@ class ControllerModuleGluuSSO242 extends Controller
         $this->install();
         $this->load->language('module/gluu_sso242');
         $this->document->setTitle($this->language->get('heading_title'));
-        $this->document->addStyle('view/stylesheet/gluu_sso_242/gluu_sso_242.css');
+        $this->document->addStyle('view/stylesheet/gluu_sso242/gluu_sso242.css');
         $this->load->model('setting/setting');
 
         require_once(DIR_SYSTEM . 'library/oxd-rp/Register_site.php');
@@ -177,7 +177,7 @@ class ControllerModuleGluuSSO242 extends Controller
                 $oxd_id = $register_site->getResponseOxdId();
                 if(!$this->gluu_db_query_select('oxd_id')){
                     $this->gluu_db_query_insert('oxd_id',$oxd_id);
-                    $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '1' WHERE `key` = 'socl_login_status';");
+                    $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '1' WHERE `key` = 'gluu_sso242_status';");
                 }
             }
             $_SESSION['message_success'] = $this->language->get('messageSiteRegisteredSuccessful');
@@ -205,7 +205,7 @@ class ControllerModuleGluuSSO242 extends Controller
             $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX ."gluu_table`;");
             $_SESSION['message_success'] = $this->language->get('messageConfigurationsDeletedSuccessful');
             $_SESSION['activ_tab'] = 'General';
-            $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '0' WHERE `key` = 'socl_login_status';");
+            $this->db->query("UPDATE `" . DB_PREFIX ."setting` SET `value` = '0' WHERE `key` = 'gluu_sso242_status';");
 
             $this->response->redirect($this->url->link('module/gluu_sso242', 'token=' . $this->session->data['token'], 'SSL'));
         }
@@ -412,7 +412,7 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('module/gluu_sso_242.tpl', $data));
+        $this->response->setOutput($this->load->view('module/gluu_sso242.tpl', $data));
     }
 
     /*
