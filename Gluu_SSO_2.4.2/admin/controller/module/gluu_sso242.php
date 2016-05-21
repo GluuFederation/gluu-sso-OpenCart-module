@@ -328,6 +328,12 @@ class ControllerModuleGluuSSO242 extends Controller
         $data['OpenIDConnect'] = $this->language->get('OpenIDConnect');
         $data['OpenCartConfig'] = $this->language->get('OpenCartConfig');
         $data['helpTrouble'] = $this->language->get('helpTrouble');
+        $data['serverConfig'] = $this->language->get('serverConfig');
+        $data['Shape'] = $this->language->get('Shape');
+        $data['Preview'] = $this->language->get('Preview');
+        $data['Square'] = $this->language->get('Square');
+        $data['Height'] = $this->language->get('Height');
+        $data['Default'] = $this->language->get('Default');
         $data['messageConnectProvider'] = $this->language->get('messageConnectProvider');
         $data['messageSiteRegisteredSuccessful'] = $this->language->get('messageSiteRegisteredSuccessful');
         $data['messageScopeDeletedSuccessful'] = $this->language->get('messageScopeDeletedSuccessful');

@@ -90,7 +90,7 @@
                                 <div>
                                     <div>
                                         <div class="about">
-                                            <h3 style="color: #45a8ff" class="sc"><img  style=" height: 45px; " src="<?php echo $base_url; ?>image/gluu_icon/ox.png"/>&nbsp; server config</h3>
+                                            <h3 style="color: #45a8ff" class="sc"><img  style=" height: 45px; " src="<?php echo $base_url; ?>image/gluu_icon/ox.png"/>&nbsp; <?php echo $serverConfig; ?></h3>
                                         </div>
                                     </div>
                                     <div class="entry-edit">
@@ -112,7 +112,7 @@
                                 </div>
                                 <form action="<?php echo $action; ?>" method="post">
                                     <input type="hidden" name="form_key" value="general_oxd_id_reset"/>
-                                    <p><input style="width: 200px; background-color: red !important; cursor: pointer" type="submit" class="btn btn-danger " value="Reset configurations" name="resetButton"/></p>
+                                    <p><input style="width: 200px; background-color: red !important; cursor: pointer" type="submit" class="btn btn-danger " value="<?php echo $resetConfig; ?>" name="resetButton"/></p>
                                 </form>
                             </div>
                             <?php } ?>
@@ -120,7 +120,7 @@
                         <div class="tab-pane <?php if($activ_tab == 'OpenIDConnect'){ echo 'active';} ?>" id="OpenIDConnect">
                             <?php if (!$oxd_id){ ?>
                             <div class="mess_red">
-                                Please enter OXD configuration to continue.
+                                <?php echo $OXDConfiguration; ?>
                             </div>
                             <br/>
                             <?php } ?>
@@ -137,13 +137,13 @@
                                             <div class="about">
                                                 <br/>
 
-                                                <h3 style="color: #00aa00" class="sc"><img style="height: 45px; " src="<?php echo $base_url; ?>image/gluu_icon//gl.png"/> &nbsp; server config
+                                                <h3 style="color: #00aa00" class="sc"><img style="height: 45px; " src="<?php echo $base_url; ?>image/gluu_icon//gl.png"/> &nbsp; <?php echo $serverConfig; ?>
                                                 </h3>
                                             </div>
                                         </div>
                                         <div class="entry-edit">
                                             <div class="entry-edit-head" style="background-color: #00aa00 !important;">
-                                                <h4 class="icon-head head-edit-form fieldset-legend">All Scopes</h4>
+                                                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $allScopes; ?></h4>
                                             </div>
                                             <div class="fieldset">
                                                 <div class="hor-scroll">
@@ -170,9 +170,9 @@
                                                             <th style="border: 1px solid #43ffdf; width: 70px;text-align: center">
                                                                 <h3>N</h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>Name</h3></th>
+                                                                <h3><?php echo $name; ?></h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>Delete</h3></th>
+                                                                <h3><?php echo $delete; ?></h3></th>
                                                         </tr>
                                                         <?php
                                             $n = 0;
@@ -200,7 +200,7 @@
                                                                            name="value_scope"/>
                                                                     <?php if ($scop != 'openid'){ ?>
                                                                     <input style="width: 100px; background-color: red !important; cursor: pointer"
-                                                                           type="submit" value="Delete"
+                                                                           type="submit" value="<?php echo $delete; ?>"
                                                                            name="delete_scop"
                                                                            class="btn btn-danger button button-primary " <?php if (!$oxd_id) echo 'disabled' ?>
                                                                     />
@@ -217,19 +217,19 @@
                                         </div>
                                         <div class="entry-edit">
                                             <div class="entry-edit-head" style="background-color: #00aa00 !important;">
-                                                <h4 class="icon-head head-edit-form fieldset-legend">Add scopes</h4>
+                                                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $addScopes;?></h4>
                                             </div>
                                             <div class="fieldset">
                                                 <input type="button" id="adding"
                                                        class="button button-primary button-large add"
-                                                       style="width: 100px" value="Add scopes"/>
+                                                       style="width: 100px" value="<?php echo $addScopes;?>"/>
 
                                                 <div class="hor-scroll">
                                                     <table class="form-list5 ">
                                                         <tr class="wrapper-tr">
                                                             <td class="value">
                                                                 <input type="text"
-                                                                       placeholder="Input scope name"
+                                                                       placeholder="<?php echo $InputScopeName; ?>"
                                                                        name="scope_name[]"/>
                                                             </td>
                                                         </tr>
@@ -239,8 +239,7 @@
                                         </div>
                                         <div class="entry-edit">
                                             <div class="entry-edit-head" style="background-color: #00aa00 !important;">
-                                                <h4 class="icon-head head-edit-form fieldset-legend">All custom
-                                                    scripts</h4>
+                                                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $allCustomScripts; ?></h4>
                                             </div>
                                             <div class="fieldset">
                                                 <div class="hor-scroll">
@@ -259,13 +258,13 @@
                                                             <th style="border: 1px solid #43ffdf; width: 70px;text-align: center">
                                                                 <h3>N</h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>Display Name</h3></th>
+                                                                <h3><?php echo $DisplayName; ?></h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>ACR Value</h3></th>
+                                                                <h3><?php echo $ACRvalue; ?></h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>Image</h3></th>
+                                                                <h3><?php echo $Image; ?></h3></th>
                                                             <th style="border: 1px solid #43ffdf;width: 200px;text-align: center">
-                                                                <h3>Delete</h3></th>
+                                                                <h3><?php echo $delete; ?></h3></th>
                                                         </tr>
                                                         <?php
                                             $n = 0;
@@ -311,12 +310,9 @@
                                             <br/>
 
                                             <div class="entry-edit-head" style="background-color: #00aa00 !important;">
-                                                <h4 class="icon-head head-edit-form fieldset-legend">Add multiple custom
-                                                    scripts</h4>
+                                                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $multipleCustomScripts; ?></h4>
                                                 <br/>
-
-                                                <p style="color:#cc0b07; font-style: italic; font-weight: bold;font-size: larger">
-                                                    Both fields are required</p>
+                                                <p style="color:#cc0b07; font-style: italic; font-weight: bold;font-size: larger"> <?php echo $BothFields; ?></p>
                                             </div>
                                             <div class="fieldset">
                                                 <div class="hor-scroll">
@@ -327,14 +323,10 @@
                                                     <table class="form-list1 ">
                                                         <tr class="count_scripts wrapper-trr">
                                                             <td class="value">
-                                                                <input style='width: 200px !important;' type="text"
-                                                                       placeholder="Display name (example Google+)"
-                                                                       name="name_in_site_1"/>
+                                                                <input style='width: 200px !important;' type="text" placeholder="<?php echo $exampleGoogle; ?>" name="name_in_site_1"/>
                                                             </td>
                                                             <td class="value">
-                                                                <input style='width: 270px !important;' type="text"
-                                                                       placeholder="ACR Value (script name in the Gluu Server)"
-                                                                       name="name_in_gluu_1"/>
+                                                                <input style='width: 270px !important;' type="text" placeholder="<?php echo $scriptName; ?>" name="name_in_gluu_1"/>
                                                             </td>
                                                             <td class="value">
                                                                 <input type="file" accept="image/png" name="images_1"/>
@@ -353,7 +345,7 @@
                         <div class="tab-pane <?php if($activ_tab == 'OpenCartConfig'){ echo 'active';} ?>" id="OpenCartConfig">
                             <?php if (!$oxd_id){ ?>
                             <div class="mess_red">
-                                Please enter OXD configuration to continue.
+                                <?php echo $OXDConfiguration; ?>
                             </div>
                             <br/>
                             <?php } ?>
@@ -361,24 +353,24 @@
                                   action="<?php echo $action;?>" enctype="multipart/form-data">
                                 <input type="hidden" name="form_key" value="opencart_config_page"/>
                                 <div class="mo2f_table_layout">
-                                    <input  type="submit" name="submit" value="Save" style="width:100px; float: right" class="btn btn-success" <?php if (!$oxd_id) echo 'disabled'; ?> />
+                                    <input  type="submit" name="submit" value="<?php echo $Save; ?>" style="width:100px; float: right" class="btn btn-success" <?php if (!$oxd_id) echo 'disabled'; ?> />
                                 </div>
                                 <div id="twofactor_list" class="mo2f_table_layout">
-                                    <h3>Gluu login config </h3>
+                                    <h3><?php echo $GluuLoginConfig; ?> </h3>
                                     <hr>
-                                    <p style="font-size:14px">Customize your login icons using a range of shapes and sizes. You can choose different places to display these icons and also customize redirect url after login.</p>
+                                    <p style="font-size:14px"><?php echo $CustomizeYourLogin; ?></p>
                                     <hr>
 
-                                    <h3>Customize Login Icons</h3>
-                                    <p>Customize shape, theme and size of the login icons</p>
+                                    <h3><?php echo $CustomizeLoginIcons; ?></h3>
+                                    <p><?php echo $CustomizeShape; ?></p>
                                     <table style="width:100%;display: table;">
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <b>Shape</b>
-                                                <b style="margin-left:130px; display: none">Theme</b>
-                                                <b style="margin-left:130px;">Space between Icons</b>
-                                                <b style="margin-left:86px;">Size of Icons</b>
+                                                <b><?php echo $Shape; ?></b>
+                                                <b style="margin-left:130px; display: none"><?php echo $Theme; ?></b>
+                                                <b style="margin-left:130px;"><?php echo $SpaceBetweenIcons; ?></b>
+                                                <b style="margin-left:86px;"><?php echo $SizeofIcons; ?></b>
                                             </td>
                                         </tr>
                                         <tr>
@@ -386,12 +378,12 @@
                                                 <input name="gluuoxd_openid_login_theme" value="circle"
                                                        onclick="checkLoginButton();gluuOxLoginPreview(document.getElementById('gluuox_login_icon_size').value ,'circle',setLoginCustomTheme(),document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value)"
                                                        checked type="radio" "<?php if (!$oxd_id) echo 'disabled'; ?>"
-                                                >Round
+                                                ><?php echo $Round; ?>
                             <span style="margin-left:106px; display: none">
                                 <input type="radio" id="gluuoxd_openid_login_default_radio" name="gluuoxd_openid_login_custom_theme" value="default"
                                        onclick="checkLoginButton();gluuOxLoginPreview(setSizeOfIcons(), setLoginTheme(),'default',document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value,document.getElementById('gluuox_login_icon_height').value)"
                                        checked <?php if (!$oxd_id) echo 'disabled'; ?>
-                                >Default
+                                ><?php echo $Default; ?>
                             </span>
                             <span style="margin-left:111px;">
                                     <input onkeyup="gluuOxLoginSpaceValidate(this)" id="gluuox_login_icon_space"
@@ -411,7 +403,7 @@
                                 <input id="gluuox_login_size_minus"  type="button" value="-"
                                        onmouseup="document.getElementById('gluuox_login_icon_size').value=parseInt(document.getElementById('gluuox_login_icon_size').value)-1;gluuOxLoginPreview(document.getElementById('gluuox_login_icon_size').value ,setLoginTheme(),setLoginCustomTheme(),document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value)" <?php if (!$oxd_id) echo 'disabled'; ?> />
                             </span>
-                            <span style="margin-left: 95px; display: none;" class="longbuttontheme">Width:&nbsp;
+                            <span style="margin-left: 95px; display: none;" class="longbuttontheme"><?php echo $Width; ?>
                                 <input style="width:50px"  id="gluuox_login_icon_width"
                                        onkeyup="gluuOxLoginWidthValidate(this)" name="gluuox_login_icon_custom_width" type="text"
                                        value="<?php echo $iconCustomWidth; ?>" <?php if (!$oxd_id) echo 'disabled'; ?>/>
@@ -426,14 +418,14 @@
                                             <td class="gluuoxd_openid_table_td_checkbox">
                                                 <input type="radio" name="gluuoxd_openid_login_theme" value="oval"
                                                        onclick="checkLoginButton();gluuOxLoginPreview(document.getElementById('gluuox_login_icon_size').value,'oval',setLoginCustomTheme(),document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value,document.getElementById('gluuox_login_icon_size').value )"
-                                                <?php if ($loginTheme == 'oval') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> />Rounded Edges
+                                                <?php if ($loginTheme == 'oval') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> /><?php echo $RoundedEdges; ?>
                         <span style="margin-left:50px; display: none">
                                 <input type="radio" id="gluuoxd_openid_login_custom_radio"
                                        name="gluuoxd_openid_login_custom_theme" value="custom"
                                        onclick="checkLoginButton();gluuOxLoginPreview(setSizeOfIcons(), setLoginTheme(),'custom',document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value,document.getElementById('gluuox_login_icon_height').value)"
-                            <?php if ($loginCustomTheme == 'custom') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> />Custom Background*
+                            <?php if ($loginCustomTheme == 'custom') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> /><?php echo $CustomBackground; ?>
                                 </span>
-                            <span style="margin-left: 256px; display: none;" class="longbuttontheme">Height:
+                            <span style="margin-left: 256px; display: none;" class="longbuttontheme"><?php echo $Height; ?>
                             <input style="width:50px"  id="gluuox_login_icon_height"
                                    onkeyup="gluuOxLoginHeightValidate(this)" name="gluuox_login_icon_custom_height" type="text"
                                    value="<?php if ($iconCustomHeight) echo $iconCustomHeight; else echo '35'; ?>" <?php if (!$oxd_id) echo 'disabled'; ?> />
@@ -449,7 +441,7 @@
                                                 <input type="radio"
                                                        name="gluuoxd_openid_login_theme" value="square"
                                                        onclick="checkLoginButton();gluuOxLoginPreview(document.getElementById('gluuox_login_icon_size').value ,'square',setLoginCustomTheme(),document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value,document.getElementById('gluuox_login_icon_size').value )"
-                                                <?php if ($loginTheme == 'square') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> />Square
+                                                <?php if ($loginTheme == 'square') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?> /><?php echo $Square; ?>
                                     <span style="margin-left:113px; display: none">
                                         <input type="color"
                                                name="gluuox_login_icon_custom_color" id="gluuox_login_icon_custom_color"
@@ -464,15 +456,14 @@
                                                         type="radio"
                                                         id="iconwithtext" name="gluuoxd_openid_login_theme" value="longbutton"
                                                         onclick="checkLoginButton();gluuOxLoginPreview(document.getElementById('gluuox_login_icon_width').value ,'longbutton',setLoginCustomTheme(),document.getElementById('gluuox_login_icon_custom_color').value,document.getElementById('gluuox_login_icon_space').value,document.getElementById('gluuox_login_icon_height').value)"
-                                                <?php if ($loginTheme == 'longbutton') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?>/>Long
-                                                Button with Text
+                                                <?php if ($loginTheme == 'longbutton') echo "checked"; ?> <?php if (!$oxd_id) echo 'disabled'; ?>/><?php echo $LongButton; ?>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <br>
-                                    <h3>Preview : </h3>
-                                    <span hidden id="no_apps_text">No apps selected</span>
+                                    <h3><?php echo $Preview; ?> </h3>
+                                    <span hidden id="no_apps_text"><?php echo $NoApps; ?></span>
                                     <div>
                                         <?php foreach ($custom_scripts as $custom_script): ?>
                                         <img class="gluuox_login_icon_preview"
@@ -701,7 +692,7 @@
 
     jQuery('#adding').click(function() {
         var wrapper = "<tr class='wrapper-tr'>" +
-                "<td class='value'><input type='text' placeholder='Input scope name' name='scope_name[]'></td>" +
+                "<td class='value'><input type='text' placeholder='<?php echo $InputScopeName; ?>' name='scope_name[]'></td>" +
                 "<td class='value'><button class='remove'>Remove</button></td>" +
                 "</tr>";
         jQuery(wrapper).find('.remove').on('click', function() {
@@ -721,8 +712,8 @@
     var d = jQuery('.count_scripts').length + 1;
     jQuery('#adder').click(function() {
         var wrapperer = "<tr class='count_scopes wrapper-trr'>" +
-                "<td  class='value'><input style='width: 200px !important;' placeholder='Display name (example Google+)' type='text' name='name_in_site_"+j+"'></td>" +
-                "<td  class='value'><input style='width: 270px !important;' placeholder='ACR Value (script name in the Gluu Server)' type='text' name='name_in_gluu_"+j+"'></td>" +
+                "<td  class='value'><input style='width: 200px !important;' placeholder='<?php echo $exampleGoogle; ?>' type='text' name='name_in_site_"+j+"'></td>" +
+                "<td  class='value'><input style='width: 270px !important;' placeholder='<?php echo $scriptName; ?>' type='text' name='name_in_gluu_"+j+"'></td>" +
                 "<td class='value'><input type='file' accept='image/png' name='images_"+j+"'></td>" +
                 "<td class='value'><button class='removeer'>Remove</button></td>" +
                 "</tr>";
