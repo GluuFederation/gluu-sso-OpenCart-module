@@ -600,13 +600,13 @@ td, th {
     font-weight: bold;
     display: block;
     margin-top: 10px;
-    color: #2120ff;
-    background-color: #1fff3b;
+    color: #000000;
+    background-color: greenyellow !important;
     padding: 5px;
-    border: solid 1px #1fff3b;
+    border: solid 1px greenyellow !important;
 }
 .mess_red a {
-    color: #0bad12;
+    color: greenyellow !important;
 }
 
 .sc {
