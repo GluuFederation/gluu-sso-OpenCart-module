@@ -59,8 +59,69 @@ class ControllerModuleGluuSSO242 extends Controller
         return $hash;
     }
 
+    /*
+     * Logining customer
+    */
+    public function login($customer_id)
+    {
+        // Retrieve the customer
+        $result = $this->db->query ("SELECT email FROM `" . DB_PREFIX . "customer` WHERE customer_id = '" . intval ($customer_id) . "'")->row;
+        if (is_array ($result) && ! empty ($result['email']))
+        {
+            // Login
+            if ($this->customer->login($result['email'], '', true))
+            {
+                unset($this->session->data['guest']);
 
+                // Default Shipping Address
+                $this->load->model('account/address');
 
+                if ($this->config->get('config_tax_customer') == 'payment')
+                {
+                    $this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+                }
+
+                if ($this->config->get('config_tax_customer') == 'shipping')
+                {
+                    $this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
+                }
+
+                // Add to activity log
+                $this->load->model('account/activity');
+
+                $activity_data = array(
+                    'customer_id' => $this->customer->getId(),
+                    'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+                );
+
+                $this->model_account_activity->addActivity('login', $activity_data);
+
+                // Logged in
+                return true;
+            }
+        }
+
+        // Not logged in
+        return false;
+    }
+
+    /*
+     * Checking customer by email
+    */
+    public function get_by_email ($email)
+    {
+        $sql = "SELECT customer_id FROM `" . DB_PREFIX . "customer` WHERE email  = '" . $this->db->escape ($email) . "'";
+        $result = $this->db->query ($sql)->row;
+        if (is_array ($result) && !empty ($result ['customer_id']))
+        {
+            return $result ['customer_id'];
+        }
+
+        // Not found.
+        return false;
+    }
+
+    
 }
 
 ?>
