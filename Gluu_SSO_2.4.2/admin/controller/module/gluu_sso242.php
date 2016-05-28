@@ -77,7 +77,7 @@ class ControllerModuleGluuSSO242 extends Controller
     {
         $this->adding_gluu_data();
         $this->load->model('extension/event');
-        $this->model_extension_event->addEvent('gluu_sso243', 'post.customer.logout', 'module/gluu_sso243/logout');
+        $this->model_extension_event->addEvent('gluu_sso242', 'post.customer.logout', 'module/gluu_sso242/logout');
 
         $query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX ."setting` WHERE `key` = 'gluu_sso242_status' ;");
         if(!$query->num_rows){
@@ -98,7 +98,6 @@ class ControllerModuleGluuSSO242 extends Controller
         {
             $this->load->model('extension/event');
             $this->model_extension_event->addEvent('gluu_sso242', 'catalog/controller/module/gluu_sso242/before', 'module/gluu_sso242');
-            $this->model_extension_event->addEvent('gluu_sso242', 'post.customer.logout', 'module/gluu_sso242/logout');
         }
     }
 
