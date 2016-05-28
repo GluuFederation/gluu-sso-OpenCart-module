@@ -419,7 +419,7 @@ class ControllerModuleGluuSSO243 extends Controller
         $data['CustomizeShape'] = $this->language->get('CustomizeShape');
         $data['CustomizeYourLogin'] = $this->language->get('CustomizeYourLogin');
         $data['manageAuthentication'] = $this->language->get('manageAuthentication');
-        $data['doocumentation242'] = $this->language->get('doocumentation242');
+        $data['doocumentation243'] = $this->language->get('doocumentation243');
         $data['selected_icon'] = $this->selected_icon();
 
         $data['get_scopes'] =   json_decode($this->gluu_db_query_select('scopes'),true);

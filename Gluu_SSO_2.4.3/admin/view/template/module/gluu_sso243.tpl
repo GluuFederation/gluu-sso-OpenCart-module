@@ -477,7 +477,7 @@
                         </div>
 
                         <div class="tab-pane" id="helpTrouble">
-                            <?php echo $doocumentation242; ?>
+                            <?php echo $doocumentation243; ?>
                         </div>
 
                     </div>
