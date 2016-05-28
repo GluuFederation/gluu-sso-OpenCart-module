@@ -160,7 +160,7 @@ class ControllerModuleGluuSSO242 extends Controller
                 "oxd_host_port" =>$this->request->post['oxd_port'],
                 "admin_email" => $this->request->post['loginemail'],
                 "authorization_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso242',
-                "logout_redirect_uri" => HTTPS_CATALOG.'index.php?index.php?route=account/logout',
+                "logout_redirect_uri" => HTTPS_CATALOG.'index.php?route=account/logout',
                 "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
                 "grant_types" =>["authorization_code"],
                 "response_types" => ["code"],
