@@ -39,7 +39,7 @@ or
 2. Open the command line and navigate to the extracted folder in the conf directory.
 3. Open oxd-conf.json file.  
 4. If your server is using 8099 port, please change "port" number to free port, which is not used.
-5. Set parameter "op_host":"Your gluu-server-url (internal or external)"
+5. Set parameter "op_host":"Your gluu-server-url (internal or external)" (in version 2.4.4 it removed)
 6. Open the command line and navigate to the extracted folder in the bin directory.
 7. For Linux environment, run sh oxd-start.sh&. 
 8. For Windows environment, run oxd-start.bat.
@@ -47,7 +47,7 @@ or
 
 ## Step 4. Download OpenCart-gluu-sso module
  
-(version 2.4.2, 2.4.3 or 2.4.4)
+(version 2.4.2 or 2.4.3)
 
 [Download OpenCart-gluu-sso-2.4.2 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.2/Gluu_SSO_2.4.2.zip).
 
@@ -73,14 +73,14 @@ For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server
 
 ## Step 6. General
 
-In OpenCart-gluu-sso 2.4.2 and 2.4.3  you do not need to add Gluu server URL.
+In OpenCart-gluu-sso 2.4.2 and 2.4.3  you do not need add Gluu server URL.
 ![General](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/6.png)  
 
-In OpenCart-gluu-sso 2.4.4  you need to add Gluu server URL.
+In OpenCart-gluu-sso 2.4.4  you do not need add Gluu server URL.
 ![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/15.png) 
 
 1. Admin Email: please add your or admin email address for registrating site in Gluu server.
-2. Gluu server URL: please add your Gluu server URL.
+2. Gluu Server URL: please add your Gluu server URL.
 3. Oxd port in your server: choose that port which is using oxd-server (see in oxd-server/conf/oxd-conf.json file).
 4. Click next to continue.
 
@@ -104,7 +104,7 @@ Pay attention to that, which scopes you are using that are switched on in your g
 In OpenCart-gluu-sso 2.4.2  you can only enable, disable and delete scope.
 ![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/8.png) 
 
-In OpenCart-gluu-sso 2.4.3 and 2.4.4 you can not only enable, disable and delete scope, but also add new scope, but when you add new scope by {any name}, necessary to add that scope in your gluu server too. 
+In OpenCart-gluu-sso 2.4.3-2.4.4 you can not only enable, disable and delete scope, but also add new scope, but when you add new scope by {any name}, necessary to add that scope in your gluu server too. 
 ![Scopes2](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/9.png) 
 
 ### Custom scripts.
