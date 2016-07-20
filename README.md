@@ -76,7 +76,7 @@ For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server
 In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2 and 2.4.3  you do not need add Gluu server URL.
 ![General](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/6.png)  
 
-In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4  you do not need add Gluu server URL.
+In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4  you need to add Gluu server URL.
 ![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/15.png) 
 
 1. Admin Email: please add your or admin email address for registrating site in Gluu server.
