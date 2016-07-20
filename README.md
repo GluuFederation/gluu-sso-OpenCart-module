@@ -1,11 +1,11 @@
-OPENCART GLUU SSO module 
+OPENCART OpenID Connect Single Sign-On (SSO) Extension by Gluu 
 =========================
 ![image](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/plugin.jpg)
 
-OPENCART-GLUU-SSO module gives access for login to your OpenCart site, with the help of GLUU server.
+OpenID Connect Single Sign-On (SSO) Extension by Gluu gives access for login to your OpenCart site, with the help of GLUU server.
 
-There are already 3 versions of OPENCART-GLUU-SSO (2.4.2, 2.4.3 and 2.4.4) modules, each in its turn is working with oxD and GLUU servers.
-For example if you are using OPENCART-gluu-sso-2.4.4 module, you need to connect with oxD-server-2.4.4.
+There are already 3 versions of OpenID Connect Single Sign-On (SSO) Extension by Gluu (2.4.2, 2.4.3 and 2.4.4) modules, each in its turn is working with oxD and GLUU servers.
+For example if you are using OpenID Connect Single Sign-On (SSO) Extension by Gluu-2.4.4 module, you need to connect with oxD-server-2.4.4.
 
 Now I want to explain in details how to use module step by step. 
 
@@ -45,21 +45,21 @@ or
 8. For Windows environment, run oxd-start.bat.
 9. After the server starts, go to Step 4.
 
-## Step 4. Download OpenCart-gluu-sso module
+## Step 4. Download OpenID Connect Single Sign-On (SSO) Extension by Gluu
  
 (version 2.4.2 or 2.4.3)
 
-[Download OpenCart-gluu-sso-2.4.2 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.2/Gluu_SSO_2.4.2.zip).
+[Download OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.2/Gluu_SSO_2.4.2.zip).
 
 or
 
-[Download OpenCart-gluu-sso-2.4.3 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.3/Gluu_SSO_2.4.3.zip).
+[Download OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.3/Gluu_SSO_2.4.3.zip).
 
 or
 
-[Download OpenCart-gluu-sso-2.4.4 module](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.4/Gluu_SSO_2.4.4.zip).
+[Download OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/Gluu_SSO_2.4.4/Gluu_SSO_2.4.4.zip).
 
-For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server-2.4.4 and OpenCart-gluu-sso-2.4.4-module
+For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server-2.4.4 and OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4
 
 ## Step 5. Install module
  
@@ -68,15 +68,15 @@ For example if you are using gluu-server-2.4.4 it is necessary to use oxD-server
 2. Choose downloaded module and click on ```Continue``` button. 
 ![Manager](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/1.png) 
 
-3. Open menu tab Extensions / Modules and find Gluu SSO 2.4.v click on ```Install``` button, than click on ```Edit``` button.
+3. Open menu tab Extensions / Modules and find OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.v click on ```Install``` button, than click on ```Edit``` button.
 ![Manager](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/2.png) 
 
 ## Step 6. General
 
-In OpenCart-gluu-sso 2.4.2 and 2.4.3  you do not need add Gluu server URL.
+In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2 and 2.4.3  you do not need add Gluu server URL.
 ![General](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/6.png)  
 
-In OpenCart-gluu-sso 2.4.4  you do not need add Gluu server URL.
+In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4  you do not need add Gluu server URL.
 ![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/15.png) 
 
 1. Admin Email: please add your or admin email address for registrating site in Gluu server.
@@ -94,17 +94,17 @@ If you want to reset configurations click on Reset configurations button.
 
 ## Step 7. OpenID Connect Configuration
 
-OpenID Connect Configuration page for OpenCart-gluu-sso 2.4.2 and OpenCart-gluu-sso 2.4.3-2.4.4 are different.
+OpenID Connect Configuration page for OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2 and OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3-2.4.4 are different.
 
 ### Scopes.
 You can look all scopes in your gluu server / OpenID Connect / Scopes and understand the meaning of  every scope.
 Scopes are need for getting loged in users information from gluu server.
 Pay attention to that, which scopes you are using that are switched on in your gluu server.
 
-In OpenCart-gluu-sso 2.4.2  you can only enable, disable and delete scope.
+In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2  you can only enable, disable and delete scope.
 ![Scopes1](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/8.png) 
 
-In OpenCart-gluu-sso 2.4.3-2.4.4 you can not only enable, disable and delete scope, but also add new scope, but when you add new scope by {any name}, necessary to add that scope in your gluu server too. 
+In OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3-2.4.4 you can not only enable, disable and delete scope, but also add new scope, but when you add new scope by {any name}, necessary to add that scope in your gluu server too. 
 ![Scopes2](https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/9.png) 
 
 ### Custom scripts.

@@ -1,13 +1,13 @@
 <?php
 
 // Heading
-$_['heading_title'] = 'Gluu SSO 2.4.4';
+$_['heading_title'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 
 // Text
 $_['text_module'] = 'Module';
-$_['text_edit'] = 'Edit Gluu SSO 2.4.4 Module';
+$_['text_edit'] = 'Edit OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 
-$_['gluu_sso'] = 'Gluu SSO 2.4.4';
+$_['gluu_sso'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 $_['General'] = 'General';
 $_['OpenIDConnect'] = 'OpenID Connect Configuration';
 $_['OpenCartConfig'] = 'OpenCart Configuration';
@@ -103,7 +103,7 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             <a target="_blank" href="http://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata">default_acr_value</a>
                                             or during the authentication process, a client may request a specific type of authentication using the
                                             <a target="_blank" href="http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest">acr_values</a> parameter.
-                                            This is the mechanism that the Gluu SSO module uses: each login icon corresponds to a acr request value.
+                                            This is the mechanism that the OpenID Connect Single Sign-On (SSO) Extension by Gluu uses: each login icon corresponds to a acr request value.
                                             For example, and acr may tell the OpenID Connect to use Facebook, Google or even plain old password authentication.
                                             The nice thing about this approach is that your applications (like OpenCart) don"t have
                                             to implement the business logic for social login--it"s handled by the OpenID Connect Provider.
@@ -131,7 +131,7 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             <a target="_blank" href="http://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata">default_acr_value</a>
                                             or during the authentication process, a client may request a specific type of authentication using the
                                             <a target="_blank" href="http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest">acr_values</a> parameter.
-                                            This is the mechanism that the Gluu SSO module uses: each login icon corresponds to a acr request value.
+                                            This is the mechanism that the OpenID Connect Single Sign-On (SSO) Extension by Gluu uses: each login icon corresponds to a acr request value.
                                             For example, and acr may tell the OpenID Connect to use Facebook, Google or even plain old password authentication.
                                             The nice thing about this approach is that your applications (like OpenCart) don"t have
                                             to implement the business logic for social login--it"s handled by the OpenID Connect Provider.
@@ -145,7 +145,7 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-custom-scripts">Manage Custom Scripts</a> section.
                                         </p>';
 
-$_['doocumentation244'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart GLUU SSO module</h1>
+$_['doocumentation244'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart OpenID Connect Single Sign-On (SSO) Extension by Gluu</h1>
                 <p><img class="img-responsive" src="646464https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/module.jpg" alt="image"></p>
                 <p>OpenCart-GLUU-SSO module gives access for login to your OpenCart site, with the help of GLUU server.</p>
                 <p>There are already 3 versions of OpenCart-GLUU-SSO (2.4.2, 2.4.3 and 2.4.4) modules, each in its turn is working with oxD and GLUU servers.
