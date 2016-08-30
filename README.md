@@ -20,7 +20,7 @@ In order to use the OpenCart Extension, you will need to have deployed a standar
 
 [Link to OpenCart marketplace](http://www.opencart.com/index.php?route=extension/extension/info&extension_id=27180&filter_search=Gluu)
  
-[Github source](https://github.com/GluuFederation/gluu-sso-OpenCart-module/raw/master/Gluu_SSO_2.4.4/Gluu_SSO_2.4.4.zip).
+[Github source](https://github.com/GluuFederation/gluu-sso-OpenCart-module/blob/master/Gluu_SSO_2.4.4.zip?raw=true).
 
 ### Step 2. Install module
  
