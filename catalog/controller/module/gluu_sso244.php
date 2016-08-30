@@ -19,8 +19,6 @@ class ControllerModuleGluuSSO244 extends Controller
             $get_tokens_by_code = new Get_tokens_by_code();
             $get_tokens_by_code->setRequestOxdId($oxd_id);
             $get_tokens_by_code->setRequestCode($_REQUEST['code']);
-            $get_tokens_by_code->setRequestState($_REQUEST['state']);
-            $get_tokens_by_code->setRequestScopes($config_option["scope"]);
             $get_tokens_by_code->request();
             $get_tokens_by_code_array = $get_tokens_by_code->getResponseObject()->data->id_token_claims;
 
