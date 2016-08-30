@@ -1,13 +1,13 @@
 <?php
 
 // Heading
-$_['heading_title'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2';
+$_['heading_title'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3';
 
 // Text
 $_['text_module'] = 'Module';
-$_['text_edit'] = 'Edit OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2 Module';
+$_['text_edit'] = 'Edit OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3 Module';
 
-$_['gluu_sso'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.2';
+$_['gluu_sso'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3';
 $_['General'] = 'General';
 $_['OpenIDConnect'] = 'OpenID Connect Configuration';
 $_['OpenCartConfig'] = 'OpenCart Configuration';
@@ -115,11 +115,39 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-custom-scripts">Manage Custom Scripts</a> section.
                                         </p>';
 
-$_['doocumentation242'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart OpenID Connect Single Sign-On (SSO) Extension by Gluu</h1>
+$_['manageAuthentication'] = '<h3>Manage Authentication</h3>
+                                        <p>An OpenID Connect Provider (OP) like the Gluu Server may provide many different work flows for
+                                            authentication. For example, an OP may offer password authentication, token authentication, social
+                                            authentication, biometric authentication, and other different mechanisms. Offering a lot of different
+                                            types of authentication enables an OP to offer the most convenient, secure, and affordable option to
+                                            identify a person, depending on the need to mitigate risk, and the sensors and inputs available on the
+                                            device that the person is using.
+                                        </p>
+                                        <p>
+                                            The OP enables a client (like a OpenCart site), to signal which type of authentication should be
+                                            used. The client can register a
+                                            <a target="_blank" href="http://openid.net/specs/openid-connect-registration-1_0.html#ClientMetadata">default_acr_value</a>
+                                            or during the authentication process, a client may request a specific type of authentication using the
+                                            <a target="_blank" href="http://openid.net/specs/openid-connect-core-1_0.html#AuthRequest">acr_values</a> parameter.
+                                            This is the mechanism that the OpenID Connect Single Sign-On (SSO) Extension by Gluu uses: each login icon corresponds to a acr request value.
+                                            For example, and acr may tell the OpenID Connect to use Facebook, Google or even plain old password authentication.
+                                            The nice thing about this approach is that your applications (like OpenCart) don"t have
+                                            to implement the business logic for social login--it"s handled by the OpenID Connect Provider.
+                                        </p>
+                                        <p>If you are using the Gluu Server as your OP, youll notice that in the Manage Custom Scripts
+                                            tab of oxTrust (the Gluu Server admin interface), each authentication script has a name.
+                                            This name corresponds to the acr value.  The default acr for password authentication is set in
+                                            the
+                                            <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-authentication">LDAP Authentication</a>,
+                                            section--look for the "Name" field. Likewise, each custom script has a "Name", for example see the
+                                            <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-custom-scripts">Manage Custom Scripts</a> section.
+                                        </p>';
+
+$_['doocumentation243'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart OpenID Connect Single Sign-On (SSO) Extension by Gluu</h1>
                 <p><img class="img-responsive" src="646464https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/module.jpg" alt="image"></p>
                 <p>OpenCart-GLUU-SSO module gives access for login to your OpenCart site, with the help of GLUU server.</p>
                 <p>There are already 2 versions of OpenCart-GLUU-SSO (2.4.2 and 2.4.3) modules, each in its turn is working with oxD and GLUU servers.
-                    For example if you are using OpenCart-gluu-sso-2.4.2 module, you need to connect with oxD-server-2.4.2.</p>
+                    For example if you are using OpenCart-gluu-sso-2.4.3 module, you need to connect with oxD-server-2.4.3.</p>
                 <p>Now I want to explain in details how to use module step by step.</p>
                 <p>Module will not be working if your host does not have https://.</p>
                 <h2><a id="Step_1_Install_Gluuserver_13"></a>Step 1. Install Gluu-server</h2>
@@ -127,7 +155,7 @@ $_['doocumentation242'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart O
                 <p>If you want to use external gluu server, You can not do this step.</p>
                 <p><a target="_blank" href="https://www.gluu.org/docs/deployment/">Gluu-server installation gide</a>.</p>
                 <h2><a id="Step_2_Download_oxDserver_21"></a>Step 2. Download oxD-server</h2>
-                <p><a target="_blank" href="https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.2.Final/oxd-server-2.4.2.Final-distribution.zip">Download oxD-server-2.4.2.Final</a>.</p>
+                <p><a target="_blank" href="https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.3.Final/oxd-server-2.4.3.Final-distribution.zip">Download oxD-server-2.4.3.Final</a>.</p>
                 <h2><a id="Step_3_Unzip_and_run_oXDserver_31"></a>Step 3. Unzip and run oXD-server</h2>
                 <ol>
                     <li>Unzip your oxD-server.</li>
@@ -152,13 +180,13 @@ $_['doocumentation242'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart O
                 <p>For making sure go to your gluu server / OpenID Connect / Clients and search for your oxD ID</p>
                 <p>If you want to reset configurations click on Reset configurations button.</p>
                 <h2><a id="Step_8_OpenID_Connect_Configuration_89"></a>Step 5. OpenID Connect Configuration</h2>
-                <p>OpenID Connect Configuration page for OpenCart-gluu-sso 2.4.2.</p>
+                <p>OpenID Connect Configuration page for OpenCart-gluu-sso 2.4.3.</p>
                 <h3><a id="Scopes_93"></a>Scopes.</h3>
                 <p>You can look all scopes in your gluu server / OpenID Connect / Scopes and understand the meaning of  every scope.
                     Scopes are need for getting loged in users information from gluu server.
                     Pay attention to that, which scopes you are using that are switched on in your gluu server.</p>
-                <p>In OpenCart-gluu-sso 2.4.2  you can only enable, disable and delete scope.
-                    <img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/8.png" alt="Scopes1"></p>
+                <p>In OpenCart-gluu-sso 2.4.3  you can add, enable, disable and delete scope.
+                    <img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/9.png" alt="Scopes1"></p>
                 <h3><a id="Custom_scripts_104"></a>Custom scripts.</h3>
                 <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/10.png" alt="Customscripts"></p>
                 <p>You can look all custom scripts in your gluu server / Configuration / Manage Custom Scripts / and enable login type, which type you want.
@@ -176,6 +204,7 @@ $_['doocumentation242'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart O
                 <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/11.png" alt="OpenCartConfiguration"></p>
                 <h2><a id="Step_10_Show_icons_in_frontend_126"></a>Step 7. Show icons in frontend</h2>
                 <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/12.png" alt="frontend"></p>';
+
 
 
 ?>

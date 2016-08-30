@@ -215,7 +215,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="entry-edit" style="display: none">
+                                        <div class="entry-edit">
                                             <div class="entry-edit-head" style="background-color: #00aa00 !important;">
                                                 <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $addScopes;?></h4>
                                             </div>
@@ -477,7 +477,7 @@
                         </div>
 
                         <div class="tab-pane" id="helpTrouble">
-                            <?php echo $doocumentation242; ?>
+                            <?php echo $doocumentation243; ?>
                         </div>
 
                     </div>

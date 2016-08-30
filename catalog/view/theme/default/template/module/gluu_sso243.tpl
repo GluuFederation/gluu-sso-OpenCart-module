@@ -49,7 +49,7 @@ $html.="<br>
 
 
     function socialLogin(appName){
-        window.location.href ='$base_url'+'index.php?app_name='+appName+'&route=module/gluu_sso242';
+        window.location.href ='$base_url'+'index.php?app_name='+appName+'&route=module/gluu_sso243';
     }
 </script>";
 }

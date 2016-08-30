@@ -1,5 +1,5 @@
 <?php
-class ControllerModuleGluuSSO242 extends Controller
+class ControllerModuleGluuSSO243 extends Controller
 {
     // Errors
     protected $error;
@@ -9,9 +9,9 @@ class ControllerModuleGluuSSO242 extends Controller
     */
     public function index ($setting)
     {
-        require_once(DIR_SYSTEM . 'library/oxd-rp-242/Get_authorization_url.php');
-        require_once(DIR_SYSTEM . 'library/oxd-rp-242/Get_tokens_by_code.php');
-        require_once(DIR_SYSTEM . 'library/oxd-rp-242/Get_user_info.php');
+        require_once(DIR_SYSTEM . 'library/oxd-rp-243/Get_authorization_url.php');
+        require_once(DIR_SYSTEM . 'library/oxd-rp-243/Get_tokens_by_code.php');
+        require_once(DIR_SYSTEM . 'library/oxd-rp-243/Get_user_info.php');
 
         if( isset( $_REQUEST['session_state'] ) ) {
             $config_option = json_decode($this->gluu_db_query_select('oxd_config'),true);
@@ -99,7 +99,7 @@ class ControllerModuleGluuSSO242 extends Controller
         }
 
         // Load Language
-        $this->load->language ('module/gluu_sso242');
+        $this->load->language ('module/gluu_sso243');
         $data['script_logged'] = '';
         $data['user_is_logged'] = $this->customer->isLogged ();
 
@@ -154,7 +154,7 @@ class ControllerModuleGluuSSO242 extends Controller
             header("Location: ".HTTPS_SERVER);
             exit;
         }else{
-            require_once(DIR_SYSTEM . 'library/oxd-rp-242/Logout.php');
+            require_once(DIR_SYSTEM . 'library/oxd-rp-243/Logout.php');
             $config_option = json_decode($this->gluu_db_query_select('oxd_config'),true);
             $oxd_id = $this->gluu_db_query_select('oxd_id');
             $logout = new Logout();
@@ -190,7 +190,7 @@ class ControllerModuleGluuSSO242 extends Controller
     */
     private function show_template ($data)
     {
-        $temp = $this->get_template ('module/gluu_sso242');
+        $temp = $this->get_template ('module/gluu_sso243');
         return $this->load->view ($temp , $data);
     }
 
