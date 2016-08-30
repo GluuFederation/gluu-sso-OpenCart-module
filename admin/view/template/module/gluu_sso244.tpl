@@ -51,22 +51,26 @@
                                         <div class="mess_red"><?php echo $Instructions; ?></div>
                                         <hr>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="loginemail"><b><font
-                                                            color="#FF0000">*</font><?php echo $adminEmail; ?>
-                                                </b></label>
-
-                                            <div class="col-sm-10"><input type="email" name="loginemail" id="loginemail"
-                                                                          autofocus="true" required
-                                                                          placeholder="person@example.com"
-
-                                                                          value="<?php echo $admin_email;?>" class="form-control"/></div>
+                                            <label class="col-sm-2 control-label" for="loginemail"><b><font color="#FF0000">*</font><?php echo $adminEmail; ?> </b></label>
+                                            <div class="col-sm-10">
+                                                <input type="email" name="loginemail" id="loginemail"  autofocus="true" required placeholder="person@example.com" value="<?php echo $admin_email;?>" class="form-control"/>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="loginemail"><b><font
+                                            <label class="col-sm-2 control-label" for="gluu_server_url"><b><font
+                                                            color="#FF0000">*</font><?php echo $gluuServerUrl; ?>
+                                                </b></label>
+
+                                            <div class="col-sm-10"><input type="url" name="gluu_server_url" id="gluu_server_url"
+                                                                          placeholder="<?php echo $gluuServerUrlText; ?>"
+                                                                          class="form-control"/></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="oxd_port"><b><font
                                                             color="#FF0000">*</font><?php echo $portNumber; ?>
                                                 </b></label>
 
-                                            <div class="col-sm-10"><input type="number" name="oxd_port" min="0"
+                                            <div class="col-sm-10"><input type="number" name="oxd_port" min="0" id="oxd_port"
                                                                           max="65535"
                                                                           value="8099"
                                                                           placeholder="<?php echo $EnterportNumber; ?>"
@@ -151,7 +155,7 @@
                                                         <tr class="wrapper-trr">
                                                             <?php foreach ($get_scopes as $scop) : ?>
                                                             <td class="value">
-                                                                <?php if ($scop == 'openid'){ ?>
+                                                                <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization'){ ?>
                                                                 <input style="display: block !important;"
                                                                        type="hidden" name="scope[]" value="<?php echo $scop; ?>" <?php if ($oxd_config && in_array($scop, $oxd_config['scope'])) {
                                                             echo " checked "; } ?>  <?php if (!$oxd_id) echo ' disabled ' ?>/>
@@ -159,7 +163,7 @@
                                                                 <input style="display: block !important;" <?php if (!$oxd_id) echo ' disabled ' ?>
                                                                 type="checkbox" name="scope[]"  <?php if ($oxd_config && in_array($scop, $oxd_config['scope'])) {
                                                             echo " checked "; } ?> id="<?php echo $scop; ?>"
-                                                                value="<?php echo $scop; ?>" <?php if ($scop == 'openid') echo ' disabled '; ?> />
+                                                                value="<?php echo $scop; ?>" <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization') echo ' disabled '; ?> />
                                                                 <label for="<?php echo $scop; ?>"><?php echo $scop; ?></label>
                                                             </td>
                                                             <?php endforeach; ?>
@@ -198,7 +202,9 @@
                                                                     <input type="hidden"
                                                                            value="<?php echo $scop; ?>"
                                                                            name="value_scope"/>
-                                                                    <?php if ($scop != 'openid'){ ?>
+                                                                    <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization'){ ?>
+
+                                                                    <?php }else{ ?>
                                                                     <input style="width: 100px; background-color: red !important; cursor: pointer"
                                                                            type="submit" value="<?php echo $delete; ?>"
                                                                            name="delete_scop"
@@ -477,7 +483,7 @@
                         </div>
 
                         <div class="tab-pane" id="helpTrouble">
-                            <?php echo $doocumentation243; ?>
+                            <?php echo $doocumentation244; ?>
                         </div>
 
                     </div>

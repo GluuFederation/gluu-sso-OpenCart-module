@@ -1,13 +1,13 @@
 <?php
 
 // Heading
-$_['heading_title'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3';
+$_['heading_title'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 
 // Text
 $_['text_module'] = 'Module';
-$_['text_edit'] = 'Edit OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3 Module';
+$_['text_edit'] = 'Edit OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 
-$_['gluu_sso'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.3';
+$_['gluu_sso'] = 'OpenID Connect Single Sign-On (SSO) Extension by Gluu 2.4.4';
 $_['General'] = 'General';
 $_['OpenIDConnect'] = 'OpenID Connect Configuration';
 $_['OpenCartConfig'] = 'OpenCart Configuration';
@@ -34,18 +34,20 @@ $_['Instructions'] = '<br/><h3>Instructions to Install oxd server</h3>
                                     <ol style="list-style:decimal !important; margin: 30px">
                                         <li>Extract and copy in your DMZ Server.</li>
                                         <li>Download the latest oxd-server package for Centos or Ubuntu. See
-                                            <a target="_blank" href="http://gluu.org/docs-oxd">oxd docs</a> for more info.
+                                            <a target="_blank" href="http://gluu.org/docs-oxd">oxD docs</a> for more info.
                                         </li><li>If you are installing an .rpm or .deb, make sure you have Java in your server.
                                         </li><li>Edit <b>oxd-conf.json</b> in the <b>conf</b> directory to specify the port on which
                                             it will run, and specify the hostname of the OpenID Connect provider.</li>
                                         <li>Open the command line and navigate to the extracted folder in the <b>bin</b> directory.</li>
                                         <li>For Linux environment, run <b>sh oxd-start.sh &amp;</b></li>
                                         <li>For Windows environment, run <b>oxd-start.bat</b></li>
-                                        <li>After the server starts, set the port number and your email in this page and click Next.</li>
+                                        <li>After the server starts, set the port number, Gluu server URL and your email in this page and click Next.</li>
                                     </ol>';
 $_['adminEmail'] = 'Admin Email:';
 $_['hederGluu'] = 'Use OpenID Connect to login by leveraging the oxd client service demon.';
 $_['portNumber'] = 'Port number:';
+$_['gluuServerUrl'] = 'Gluu Server URL:';
+$_['gluuServerUrlText'] = 'Please insert your gluu server url';
 $_['Addacr'] = 'Add acr';
 $_['Save'] = 'Save';
 $_['EnterportNumber'] = 'Enter port number.';
@@ -143,19 +145,19 @@ $_['manageAuthentication'] = '<h3>Manage Authentication</h3>
                                             <a target="_blank" href="https://www.gluu.org/docs/admin-guide/configuration/#manage-custom-scripts">Manage Custom Scripts</a> section.
                                         </p>';
 
-$_['doocumentation243'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart OpenID Connect Single Sign-On (SSO) Extension by Gluu</h1>
+$_['doocumentation244'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart OpenID Connect Single Sign-On (SSO) Extension by Gluu</h1>
                 <p><img class="img-responsive" src="646464https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/module.jpg" alt="image"></p>
                 <p>OpenCart-GLUU-SSO module gives access for login to your OpenCart site, with the help of GLUU server.</p>
-                <p>There are already 2 versions of OpenCart-GLUU-SSO (2.4.2 and 2.4.3) modules, each in its turn is working with oxD and GLUU servers.
-                    For example if you are using OpenCart-gluu-sso-2.4.3 module, you need to connect with oxD-server-2.4.3.</p>
+                <p>There are already 3 versions of OpenCart-GLUU-SSO (2.4.2, 2.4.3 and 2.4.4) modules, each in its turn is working with oxD and GLUU servers.
+                    For example if you are using OpenCart-gluu-sso-2.4.4 module, you need to connect with oxD-server-2.4.4.</p>
                 <p>Now I want to explain in details how to use module step by step.</p>
                 <p>Module will not be working if your host does not have https://.</p>
                 <h2><a id="Step_1_Install_Gluuserver_13"></a>Step 1. Install Gluu-server</h2>
-                <p>(version 2.4.2 or 2.4.3)</p>
+                <p>(versions 2.4.2, 2.4.3 or 2.4.4)</p>
                 <p>If you want to use external gluu server, You can not do this step.</p>
                 <p><a target="_blank" href="https://www.gluu.org/docs/deployment/">Gluu-server installation gide</a>.</p>
                 <h2><a id="Step_2_Download_oxDserver_21"></a>Step 2. Download oxD-server</h2>
-                <p><a target="_blank" href="https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.3.Final/oxd-server-2.4.3.Final-distribution.zip">Download oxD-server-2.4.3.Final</a>.</p>
+                <p><a target="_blank" href="https://ox.gluu.org/maven/org/xdi/oxd-server/2.4.4.Final/oxd-server-2.4.4.Final-distribution.zip">Download oxD-server-2.4.4.Final</a>.</p>
                 <h2><a id="Step_3_Unzip_and_run_oXDserver_31"></a>Step 3. Unzip and run oXD-server</h2>
                 <ol>
                     <li>Unzip your oxD-server.</li>
@@ -169,7 +171,7 @@ $_['doocumentation243'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart O
                     <li>After the server starts, go to Step 4.</li>
                 </ol>
                 <h2><a id="Step_6_General_73"></a>Step 4. General</h2>
-                <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/6.png" alt="General"></p>
+                <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/15.png" alt="General"></p>
                 <ol>
                     <li>Admin Email: please add your or admin email address for registrating site in Gluu server.</li>
                     <li>Port number: choose that port which is using oxd-server (see in oxd-server/conf/oxd-conf.json file).</li>
@@ -180,12 +182,12 @@ $_['doocumentation243'] = '<h1><a id="OpenCart_GLUU_SSO_module_0"></a>OpenCart O
                 <p>For making sure go to your gluu server / OpenID Connect / Clients and search for your oxD ID</p>
                 <p>If you want to reset configurations click on Reset configurations button.</p>
                 <h2><a id="Step_8_OpenID_Connect_Configuration_89"></a>Step 5. OpenID Connect Configuration</h2>
-                <p>OpenID Connect Configuration page for OpenCart-gluu-sso 2.4.3.</p>
+                <p>OpenID Connect Configuration page for OpenCart-gluu-sso 2.4.4.</p>
                 <h3><a id="Scopes_93"></a>Scopes.</h3>
                 <p>You can look all scopes in your gluu server / OpenID Connect / Scopes and understand the meaning of  every scope.
                     Scopes are need for getting loged in users information from gluu server.
                     Pay attention to that, which scopes you are using that are switched on in your gluu server.</p>
-                <p>In OpenCart-gluu-sso 2.4.3  you can add, enable, disable and delete scope.
+                <p>In OpenCart-gluu-sso 2.4.4  you can add, enable, disable and delete scope.
                     <img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/9.png" alt="Scopes1"></p>
                 <h3><a id="Custom_scripts_104"></a>Custom scripts.</h3>
                 <p><img class="img-responsive" src="https://raw.githubusercontent.com/GluuFederation/gluu-sso-OpenCart-module/master/docu/10.png" alt="Customscripts"></p>
