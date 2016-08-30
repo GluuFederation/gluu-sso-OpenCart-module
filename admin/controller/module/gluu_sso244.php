@@ -18,7 +18,7 @@ class ControllerModuleGluuSSO244 extends Controller
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
         if(!json_decode($this->gluu_db_query_select('scopes'),true)){
-            $this->gluu_db_query_insert('scopes',json_encode(array("openid","uma_protection","uma_authorization","profile","email","address","clientinfo","mobile_phone","phone")));
+            $this->gluu_db_query_insert('scopes',json_encode(array("openid","profile","email","address","clientinfo","mobile_phone","phone")));
         }
         if(!json_decode($this->gluu_db_query_select('custom_scripts'),true)){
             $this->gluu_db_query_insert('custom_scripts',json_encode(array(
@@ -39,7 +39,7 @@ class ControllerModuleGluuSSO244 extends Controller
                         "admin_email" => '',
                         "authorization_redirect_uri" => $base_url.'index.php?route=module/gluu_sso244',
                         "logout_redirect_uri" => $base_url.'index.php?route=account/logout',
-                        "scope" => ["openid","uma_protection","uma_authorization","profile","email","address","clientinfo","mobile_phone","phone"],
+                        "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
                         "grant_types" =>["authorization_code"],
                         "response_types" => ["code"],
                         "application_type" => "web",
@@ -155,7 +155,7 @@ class ControllerModuleGluuSSO244 extends Controller
                 "admin_email" => $this->request->post['loginemail'],
                 "authorization_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso244',
                 "logout_redirect_uri" => HTTPS_CATALOG.'index.php?route=account/logout',
-                "scope" => ["openid","uma_protection","uma_authorization","profile","email","address","clientinfo","mobile_phone","phone"],
+                "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
                 "grant_types" =>["authorization_code"],
                 "response_types" => ["code"],
                 "application_type" => "web",
@@ -169,7 +169,7 @@ class ControllerModuleGluuSSO244 extends Controller
                 "admin_email" => $this->request->post['loginemail'],
                 "authorization_redirect_uri" => HTTPS_CATALOG.'index.php?route=module/gluu_sso244',
                 "logout_redirect_uri" => HTTPS_CATALOG.'index.php?index.php?route=account/logout',
-                "scope" => ["openid","uma_protection","uma_authorization","profile","email","address","clientinfo","mobile_phone","phone"],
+                "scope" => ["openid","profile","email","address","clientinfo","mobile_phone","phone"],
                 "grant_types" =>["authorization_code"],
                 "response_types" => ["code"],
                 "application_type" => "web",

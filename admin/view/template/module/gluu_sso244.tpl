@@ -155,7 +155,7 @@
                                                         <tr class="wrapper-trr">
                                                             <?php foreach ($get_scopes as $scop) : ?>
                                                             <td class="value">
-                                                                <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization'){ ?>
+                                                                <?php if ($scop == 'openid'){ ?>
                                                                 <input style="display: block !important;"
                                                                        type="hidden" name="scope[]" value="<?php echo $scop; ?>" <?php if ($oxd_config && in_array($scop, $oxd_config['scope'])) {
                                                             echo " checked "; } ?>  <?php if (!$oxd_id) echo ' disabled ' ?>/>
@@ -163,7 +163,7 @@
                                                                 <input style="display: block !important;" <?php if (!$oxd_id) echo ' disabled ' ?>
                                                                 type="checkbox" name="scope[]"  <?php if ($oxd_config && in_array($scop, $oxd_config['scope'])) {
                                                             echo " checked "; } ?> id="<?php echo $scop; ?>"
-                                                                value="<?php echo $scop; ?>" <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization') echo ' disabled '; ?> />
+                                                                value="<?php echo $scop; ?>" <?php if ($scop == 'openid') echo ' disabled '; ?> />
                                                                 <label for="<?php echo $scop; ?>"><?php echo $scop; ?></label>
                                                             </td>
                                                             <?php endforeach; ?>
@@ -202,7 +202,7 @@
                                                                     <input type="hidden"
                                                                            value="<?php echo $scop; ?>"
                                                                            name="value_scope"/>
-                                                                    <?php if ($scop == 'openid' || $scop == 'uma_protection' || $scop == 'uma_authorization'){ ?>
+                                                                    <?php if ($scop == 'openid'){ ?>
 
                                                                     <?php }else{ ?>
                                                                     <input style="width: 100px; background-color: red !important; cursor: pointer"
