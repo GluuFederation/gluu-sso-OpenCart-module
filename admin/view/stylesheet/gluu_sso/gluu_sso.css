@@ -260,7 +260,6 @@ hr {
 }
 
 #displayQrCode, #testQrCode, .collapse, .panel-body {
-    background: #F7F7F7;
     border-radius: 4px
 }
 
@@ -395,7 +394,6 @@ table td {
 }
 
 #userprofile table th {
-    background: #F7F7F7
 }
 
 #slider1 > ul > li > img, #slider2 > ul > li > img, #slider3 > ul > li > img, #slider4 > ul > li > img, #slider5 > ul > li > img, #slider7 > ul > li > img, #slider8 > ul > li > img {
