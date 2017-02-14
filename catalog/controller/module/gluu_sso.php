@@ -293,7 +293,19 @@ class ControllerModuleGluuSSO extends Controller
                 $world = str_replace("[","",$get_user_info_array->permission[0]);
                 $reg_user_permission = str_replace("]","",$world);
             }
-
+              $bool = false;
+              if($gluu_users_can_register == 2 and !empty($gluu_new_roles)){
+	              foreach ($gluu_new_roles as $gluu_new_role) {
+		              if (strstr($reg_user_permission, $gluu_new_role)) {
+			              $bool = true;
+		              }
+	              }
+	              if(!$bool){
+		              $_SESSION['openid_error_message'] = 'You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.';
+		              $this->response->redirect($this->gluu_sso_doing_logout($get_tokens_by_code->getResponseIdToken(), $_REQUEST['session_state'], $_REQUEST['state']));
+		              return;
+                }
+              }
             $phone = $reg_home_phone_number . ', '. $reg_phone_mobile_number;
             if($this->admin_login($reg_email)){
                 $token = token(32);
@@ -323,16 +335,13 @@ class ControllerModuleGluuSSO extends Controller
 		            }
 	            }
 	            else {
-		            $bool = true;
-		            if($gluu_users_can_register == 2 and !empty($gluu_new_roles)){
-			            if (!in_array($reg_user_permission, $gluu_new_roles)) {
-				            $bool = false;
-			            }else{
-				            $bool = True;
-			            }
+		            
+		            if($gluu_users_can_register == 3){
+			            $_SESSION['openid_error_message'] = 'You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.';
+			            $this->response->redirect($this->gluu_sso_doing_logout($get_tokens_by_code->getResponseIdToken(), $_REQUEST['session_state'], $_REQUEST['state']));
+			            return;
 		            }
-		            if(!$bool or $gluu_users_can_register == 3){
-		            }else{
+		            else{
 			            if (($customer_id = $this->add_customer ($customer_data)) !== false){
 				            if ($this->login ($customer_id))
 				            {
@@ -370,15 +379,7 @@ class ControllerModuleGluuSSO extends Controller
                     }
                 }
                 else {
-                    $bool = true;
-                    if($gluu_users_can_register == 2 and !empty($gluu_new_roles)){
-                        if (!in_array($reg_user_permission, $gluu_new_roles)) {
-                            $bool = false;
-                        }else{
-                            $bool = True;
-                        }
-                    }
-                    if(!$bool or $gluu_users_can_register == 3){
+                    if($gluu_users_can_register == 3){
                         $_SESSION['openid_error_message'] = 'You are not authorized for an account on this application. If you think this is an error, please contact your OpenID Connect Provider (OP) admin.';
 	                    $this->response->redirect($this->gluu_sso_doing_logout($get_tokens_by_code->getResponseIdToken(), $_REQUEST['session_state'], $_REQUEST['state']));
 	                    return;
