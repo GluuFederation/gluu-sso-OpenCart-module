@@ -401,7 +401,7 @@
 			}
 			if( isset( $_REQUEST['form_key'] ) and strpos( $_REQUEST['form_key'], 'general_register_page' ) !== false ) {
 				if(!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] != "on") {
-					$_SESSION['message_error'] = 'OpenID Connect requires https. This plugin will not work if your website uses http only.';
+					$_SESSION['message_error'] = 'OpenID Connect requires https. This extension will not work if your website uses http only.';
 					$this->response->redirect($this->url->link('module/gluu_sso', 'token=' . $this->session->data['token'], 'SSL'));
 					return;
 				}
@@ -882,7 +882,7 @@
 				$gluu_acr = $this->model_module_gluu_sso->gluu_db_query_update('gluu_acr', $gluu_acr);
 				
 				if(!isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] != "on") {
-					$_SESSION['message_error'] = 'OpenID Connect requires https. This plugin will not work if your website uses http only.';
+					$_SESSION['message_error'] = 'OpenID Connect requires https. This extension will not work if your website uses http only.';
 					$this->response->redirect($this->url->link('module/gluu_sso/edit', 'token=' . $this->session->data['token'], 'SSL'));
 					return;
 				}
