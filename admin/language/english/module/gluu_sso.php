@@ -5,7 +5,7 @@
 	 *
 	 * @package	  OpenID Connect SSO Extension  by Gluu
 	 * @category  Extension for OpenCart
-	 * @version   3.0.0
+	 * @version   2.4.4
 	 *
 	 * @author    Gluu Inc.          : <https://gluu.org>
 	 * @link      Oxd site           : <https://oxd.gluu.org>

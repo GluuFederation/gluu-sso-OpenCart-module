@@ -119,7 +119,7 @@
                                         </div>
                                         <div style="padding-left: 20px">
                                             <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%;">
-                                                Enrollment
+                                                Enrollment and Access Management
                                                 <a data-toggle="tooltip" class="tooltipLink"
                                                    data-original-title="Choose whether to register new users when they login at an external identity provider. If you disable automatic registration, new users will need to be manually created">
                                                     <span class="fa fa-info"></span>
@@ -132,8 +132,7 @@
                                             <div class="radio">
                                                 <p><label><input name="gluu_users_can_register" type="radio"
                                                                  id="gluu_users_can_register_1" <?php if($gluu_users_can_register==2){ echo "checked";} ?>
-                                                        value="2" style="margin-right: 3px"> <b>Only register users with
-                                                            the following role(s) in the OpenID Provider</b></label></p>
+                                                        value="2" style="margin-right: 3px"> <b>Only register and allow ongoing access to users with one or more of the following roles in the OpenID Provider</b></label></p>
                                                 <div style="margin-left: 20px;">
                                                     <div id="p_role">
                                                         <?php $k=0;
@@ -204,7 +203,7 @@
                                                         <div class="form-group" style="margin-bottom: 0px !important; width: 370px">
                                                             <select id="UserType" class="form-control"  name="gluu_user_role">
                                                                 <?php foreach($user_types as $user_type){ ?>
-                                                                    <option <?php if($user_type['status'] == $gluu_user_role) echo 'selected'; ?> "><?php echo $user_type['name'];?> </option>
+                                                                <option <?php if($user_type['status'] == $gluu_user_role) echo 'selected'; ?> "><?php echo $user_type['name'];?> </option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
@@ -287,24 +286,24 @@
                                                 </tr>
                                                 <?php if(!empty($gluu_config['gluu_client_id']) and !empty($gluu_config['gluu_client_secret'])){ ?>
                                                 <tr>
-                                                <td style="width: 250px"><b><font color="#FF0000">*</font>Redirect URL:</b></td>
-                                                <td><p><?php echo $base_url.'index.php?route=module/gluu_sso/login_by_sso';?></p>
-                                                </td>
+                                                    <td style="width: 250px"><b><font color="#FF0000">*</font>Redirect URL:</b></td>
+                                                    <td><p><?php echo $base_url.'index.php?route=module/gluu_sso/login_by_sso';?></p>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                <td style="width: 250px"><b><font color="#FF0000">*</font>Client ID:</b></td>
-                                                <td><input class="" type="text" name="gluu_client_id" id="gluu_client_id"
-                                                autofocus="true" placeholder="Enter OpenID Provider client ID."
-                                                style="background-color: rgb(235, 235, 228);"
-                                                value="<?php if(!empty($gluu_config['gluu_client_id'])) echo $gluu_config['gluu_client_id']; ?>"/>
-                                                </td>
+                                                    <td style="width: 250px"><b><font color="#FF0000">*</font>Client ID:</b></td>
+                                                    <td><input class="" type="text" name="gluu_client_id" id="gluu_client_id"
+                                                               autofocus="true" placeholder="Enter OpenID Provider client ID."
+                                                               style="background-color: rgb(235, 235, 228);"
+                                                               value="<?php if(!empty($gluu_config['gluu_client_id'])) echo $gluu_config['gluu_client_id']; ?>"/>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                <td style="width: 250px"><b><font color="#FF0000">*</font>Client Secret:</b></td>
-                                                <td>
-                                                <input class="" type="text" name="gluu_client_secret" id="gluu_client_secret"
-                                                autofocus="true" placeholder="Enter OpenID Provider client secret."  style="background-color: rgb(235, 235, 228);" value="<?php if(!empty($gluu_config['gluu_client_secret'])) echo $gluu_config['gluu_client_secret']; ?>"/>
-                                                </td>
+                                                    <td style="width: 250px"><b><font color="#FF0000">*</font>Client Secret:</b></td>
+                                                    <td>
+                                                        <input class="" type="text" name="gluu_client_secret" id="gluu_client_secret"
+                                                               autofocus="true" placeholder="Enter OpenID Provider client secret."  style="background-color: rgb(235, 235, 228);" value="<?php if(!empty($gluu_config['gluu_client_secret'])) echo $gluu_config['gluu_client_secret']; ?>"/>
+                                                    </td>
                                                 </tr>
                                                 <?php }?>
                                                 <tr>
@@ -385,8 +384,8 @@
                                                                 <?php
                                                                     foreach($user_types as $user_type){
                                                                         ?>
-                                                                            <option <?php if($user_type['status'] == $gluu_user_role) echo 'selected'; ?> value="<?php echo $user_type['status'];?>"><?php echo $user_type['name'];?></option>
-                                                                        <?php
+                                                                <option <?php if($user_type['status'] == $gluu_user_role) echo 'selected'; ?> value="<?php echo $user_type['status'];?>"><?php echo $user_type['name'];?></option>
+                                                                <?php
                                                                     }
                                                                 ?>
                                                             </select>
@@ -473,10 +472,10 @@
 
     function test_add() {
         var wrapper1 = '<p class="role_p" style="padding-top: 10px">' +
-                '<input class="form-control"  type="text" name="gluu_new_role[]" placeholder="Input role name" style="display: inline; width: 200px !important; margin-right: 5px"/>' +
-                '<button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button> ' +
-                '<button type="button" class="btn btn-xs remrole" ><span class="glyphicon glyphicon-minus"></span></button>' +
-                '</p>';
+            '<input class="form-control"  type="text" name="gluu_new_role[]" placeholder="Input role name" style="display: inline; width: 200px !important; margin-right: 5px"/>' +
+            '<button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button> ' +
+            '<button type="button" class="btn btn-xs remrole" ><span class="glyphicon glyphicon-minus"></span></button>' +
+            '</p>';
         jQuery(wrapper1).find('.remrole').on('click', function() {
             jQuery(this).parent('.role_p').remove();
         });

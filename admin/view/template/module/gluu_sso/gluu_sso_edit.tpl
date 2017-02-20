@@ -124,7 +124,7 @@
                                     </div>
                                     <div style="padding-left: 10px;">
                                         <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60%;">
-                                            Enrollment
+                                            Enrollment and Access Management
                                             <a data-toggle="tooltip" class="tooltipLink"
                                                data-original-title="Choose whether to register new users when they login at an external identity provider. If you disable automatic registration, new users will need to be manually created">
                                                 <span class="fa fa-info"></span>
@@ -139,8 +139,7 @@
                                         <div style="padding-left: 10px;">
                                             <p><label><input name="gluu_users_can_register" type="radio"
                                                              id="gluu_users_can_register" <?php if($gluu_users_can_register==2){ echo "checked";} ?>
-                                                    value="2" style="margin-right: 3px"> Only register users with the
-                                                    following role(s) in the OpenID Provider</label></p>
+                                                    value="2" style="margin-right: 3px"> Only register and allow ongoing access to users with one or more of the following roles in the OpenID Provider</label></p>
                                             <div style="margin-left: 20px;">
                                                 <div id="p_role">
                                                     <?php $k=0;
@@ -327,10 +326,10 @@
 
     function test_add() {
         var wrapper1 = '<p class="role_p" style="padding-top: 10px">' +
-                '<input class="form-control"  type="text" name="gluu_new_role[]" placeholder="Input role name" style="display: inline; width: 200px !important; margin-right: 5px"/>' +
-                '<button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button> ' +
-                '<button type="button" class="btn btn-xs remrole" ><span class="glyphicon glyphicon-minus"></span></button>' +
-                '</p>';
+            '<input class="form-control"  type="text" name="gluu_new_role[]" placeholder="Input role name" style="display: inline; width: 200px !important; margin-right: 5px"/>' +
+            '<button type="button" class="btn btn-xs add_new_role" onclick="test_add()"><span class="glyphicon glyphicon-plus"></span></button> ' +
+            '<button type="button" class="btn btn-xs remrole" ><span class="glyphicon glyphicon-minus"></span></button>' +
+            '</p>';
         jQuery(wrapper1).find('.remrole').on('click', function() {
             jQuery(this).parent('.role_p').remove();
         });
