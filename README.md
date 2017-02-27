@@ -7,6 +7,8 @@ Gluu's OpenID Connect Single Sign-On (SSO) OpenCart module will enable you to au
 ## Requirements
 In order to use the OpenCart module you will need to have a standard OP (like Google or a Gluu Server) and the oxd server.
 
+* Compatibility : 2.0.0.0 <= 2.3.0.0 versions
+
 * [Gluu Server Installation Guide](https://www.gluu.org/docs/deployment/).
 
 * [oxd Server Installation Guide](https://oxd.gluu.org/docs/oxdserver/install/)
