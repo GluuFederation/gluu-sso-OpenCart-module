@@ -11,7 +11,7 @@
 	 *
 	 * @package	  Oxd Library by Gluu
 	 * @category  Library, Api
-	 * @version   3.0.0
+	 * @version   3.1.1
 	 *
 	 * @author    Gluu Inc.          : <https://gluu.org>
 	 * @link      Oxd site           : <https://oxd.gluu.org>
@@ -77,6 +77,10 @@
      * @var array $request_acr_values                        It is gluu-server login parameter type
      */
     private $request_acr_values = null;
+    /**
+     * @var string $request_access_token                     Access token for each request
+     */
+    private $request_protection_access_token;
 
     /**
      * It is authorization url to gluu server.
@@ -175,6 +179,14 @@
     {
         $this->command = 'get_authorization_url';
     }
+    
+    function getRequest_protection_access_token() {
+        return $this->request_protection_access_token;
+    }
+
+    function setRequest_protection_access_token($request_protection_access_token) {
+        $this->request_protection_access_token = $request_protection_access_token;
+    }  
     /**
      * Protocol parameter to oXD server
      * @return void
@@ -185,7 +197,8 @@
             "oxd_id" => $this->getRequestOxdId(),
             "acr_values" => $this->getRequestAcrValues(),
             "prompt" => $this->getRequestPrompt(),
-            "scope" => $this->getRequestScope()
+            "scope" => $this->getRequestScope(),
+            "protection_access_token"=> $this->getRequest_protection_access_token()
         );
     }
 

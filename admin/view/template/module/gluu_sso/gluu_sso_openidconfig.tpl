@@ -24,7 +24,7 @@
                     <?php } ?>
                 </div>
                 <br/>
-                <div  id="form-socl-login" class="form-horizontal">
+                <div  id="form-socl-login" class="form-horizontal" style="background-color: #e5fff3;">
                     <ul class="nav nav-tabs">
                         <li  id="account_setup"><a  href="<?php echo $action_general; ?>">General</a></li>
                         <?php if ( !$gluu_is_oxd_registered) { ?>
@@ -187,15 +187,16 @@
                                                     <?php } ?>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <th >
-                                                    <input type="submit" class="btn btn-primary btn-large" <?php if(!$gluu_is_oxd_registered) echo 'disabled'?> value="Save Authentication Settings" name="set_oxd_config" />
-                                                </th>
-                                                <td>
-                                                </td>
-                                            </tr>
+                                            
                                             </tbody>
                                         </table>
+                                        <div style="border-bottom:2px solid #000;"></div>
+                                        <br/><br/>
+                                        <div class="row">
+                                            <div class="col-md-4 col-md-offset-4 text-center">
+                                                <input type="submit" class="btn btn-primary btn-large" <?php if(!$gluu_is_oxd_registered) echo 'disabled'?> value="Save Authentication Settings" name="set_oxd_config" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </form>

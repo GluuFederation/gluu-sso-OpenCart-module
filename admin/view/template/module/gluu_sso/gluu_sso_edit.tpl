@@ -25,7 +25,7 @@
                     <?php } ?>
                 </div>
                 <br/>
-                <div id="form-socl-login" class="form-horizontal">
+                <div id="form-socl-login" class="form-horizontal" style="background-color: #e5fff3;">
                     <ul class="nav nav-tabs">
                         <li class="active" id="account_setup"><a href="<?php echo $action_general; ?>">General</a></li>
                         <?php if ( !$gluu_is_oxd_registered) { ?>
@@ -49,8 +49,14 @@
                                              src="<?php echo $base_url; ?>image/gluu_icon/gl.png"/>
                                     </legend>
                                     <div style="padding-left: 10px;margin-top: -20px">
+                                        <div style="padding-left:10px;">
+                                            <p>The oxd OpenID Connect single sign-on (SSO) plugin for OpenCart enables you to use a standard OpenID Connect Provider (OP), like Google or the Gluu Server, to authenticate and enroll users for your OpenCart site.</p>
+                                            <p>This plugin relies on the oxd mediator service. For oxd deployment instructions and license information, please visit the <a href="https://oxd.gluu.org/">oxd website</a>.</p>
+                                            <p>In addition, if you want to host your own OP you can deploy the <a href="https://www.gluu.org/">free open source Gluu Server</a>.</p>
+                                        </div>
                                         <h3 style="font-weight:bold;padding-left: 10px;padding-bottom: 20px; border-bottom: 2px solid black; width: 60% ">
                                             Server Settings</h3>
+                                        <p><i>The below values are required to configure your OpenCart site with your oxd server and OP. Upon successful registration of your OpenCart site in the OP, a unique identifier will be issued and displayed below in a new field called: oxd ID.</i></p>
                                         <table class="table">
                                             <tr>
                                                 <td style="width: 270px"><b>URI of the OpenID Connect Provider:</b></td>
@@ -72,9 +78,9 @@
                                             </tr>
                                             <?php if(!empty($gluu_config['gluu_client_id']) and !empty($gluu_config['gluu_client_secret'])){ ?>
                                             <tr>
-                                                <td style="width: 270px"><b><font color="#FF0000">*</font>Redirect
+                                                <td style="width: 270px"><b>Redirect
                                                         URL:</b></td>
-                                                <td><p><?php echo $base_url.'index.php?route=module/gluu_sso/login_by_sso';?></p>
+                                                <td><input type="text" disabled value="<?php echo $base_url.'index.php?route=module/gluu_sso/login_by_sso';?>" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -101,14 +107,46 @@
                                             </tr>
                                             <?php }?>
                                             <tr>
-                                                <td style="width: 270px"><b><font color="#FF0000">*</font>oxd port:</b>
+                                                <td>
+                                                    <b>
+                                                        <font color="#FF0000">*</font>Select oxd server / oxd https extension 
+                                                        <a data-toggle="tooltip" class="tooltipLink" data-original-title="If you are using localhost to connect your open cart site to your oxd server, choose oxd server. If you are connecting via https, choose oxd https extension.">
+                                                            <span class="fa fa-info-circle"></span>
+                                                        </a>
+                                                    </b>
                                                 </td>
                                                 <td>
+                                                    <div class="row">
+                                                        <div class="col-md-12">    
+                                                            <div class="radio">
+                                                                <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="1" <?php if(isset($gluu_config["oxd_request_pattern"]) &&  $gluu_config["oxd_request_pattern"] == 1) { echo 'checked'; }?>>oxd server</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="radio">
+                                                                <label><input type="radio" style="margin-top:1px" name="oxd_request_pattern" value="2" <?php if(isset($gluu_config["oxd_request_pattern"]) &&  $gluu_config["oxd_request_pattern"] == 2) { echo 'checked'; }?>>oxd https extension</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="port">
+                                                <td class="port" style="width: 270px"><b><font color="#FF0000">*</font>oxd port:</b>
+                                                </td>
+                                                <td class="port">
                                                     <input class="" type="number" name="gluu_oxd_port" min="0"
                                                            max="65535"
                                                            value="<?php echo $gluu_config['gluu_oxd_port']; ?>"
                                                            style=""
                                                            placeholder="Please enter free port (for example 8099). (Min. number 0, Max. number 65535)."/>
+                                                </td>
+                                            </tr>
+                                            <tr class="host">
+                                                <td class="host"><b><font color="#FF0000">*</font>oxd https extension host:</b></td>
+                                                <td class="host">
+                                                    <input class="" type="text" name="gluu_oxd_web_host" 
+                                                           value="<?php echo $gluu_config['gluu_oxd_web_host']; ?>" 
+                                                           placeholder="Please enter oxd https extension host">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -127,7 +165,7 @@
                                             Enrollment and Access Management
                                             <a data-toggle="tooltip" class="tooltipLink"
                                                data-original-title="Choose whether to register new users when they login at an external identity provider. If you disable automatic registration, new users will need to be manually created">
-                                                <span class="fa fa-info"></span>
+                                                <span class="fa fa-info-circle"></span>
                                             </a>
                                         </h3>
                                         <div style="padding-left: 10px;">
@@ -218,20 +256,22 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td style="width: 270px">
-                                                    <input type="submit" name="saveButton" value="Save"
-                                                           style="text-decoration: none;text-align:center; float: right; width: 120px; margin-right: 20px"
-                                                           class="btn btn-success button button-primary"/>
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-danger button button-primary"
-                                                       onclick="edit_cancel_function()"
-                                                       style="background-color:red;text-align:center;float: left; width: 120px;margin-left: -15px"
-                                                       href="<?php echo $cancel;?>">Cancel</a>
-                                                </td>
-                                            </tr>
                                         </table>
+                                        <div style="border-bottom:2px solid #000;"></div>
+                                            <br/><br/>
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3 text-right">
+                                                <input type="submit" name="saveButton" value="Save"
+                                                       style="text-decoration: none;text-align:center; width: 120px; margin-right: 20px"
+                                                       class="btn btn-primary"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <a class="btn btn-primary"
+                                                   onclick="edit_cancel_function()"
+                                                   style="text-align:center; width: 120px;margin-left: -15px"
+                                                   href="<?php echo $cancel;?>">Cancel</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </form>
@@ -245,6 +285,23 @@
 <script type="application/javascript">
     var $m = jQuery;
     jQuery(document ).ready(function() {
+        <?php if(isset($gluu_config["oxd_request_pattern"]) &&  $gluu_config["oxd_request_pattern"] == 2) { ?>
+            jQuery(".port").hide();
+            jQuery(".host").show();
+        <?php } else { ?>
+            jQuery(".host").hide();
+            jQuery(".port").show();
+        <?php } ?>
+        
+        jQuery("input[name='oxd_request_pattern']").change(function(){
+            if(jQuery(this).val() == 2){
+                jQuery(".port").hide();
+                jQuery(".host").show();
+            } else {
+                jQuery(".host").hide();
+                jQuery(".port").show();
+            }
+        });
         <?php if($gluu_users_can_register == 2){ ?>
             jQuery("#p_role").children().prop('disabled',false);
             jQuery("#p_role *").prop('disabled',false);
@@ -337,6 +394,7 @@
     }
 </script>
 <script type="application/javascript">
+    
     /*window.onbeforeunload = function(){
      return "You may have unsaved changes. Are you sure you want to leave this page?"
      }*/

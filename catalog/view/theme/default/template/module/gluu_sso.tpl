@@ -9,7 +9,7 @@ if($gluu_send_user_check == 'yes' && $gluu_oxd_id) {
 	header("Location: ".$login_url);
 	exit;
 }
-else if($gluu_send_user_check == 'no' && $gluu_oxd_id) {
+else if($gluu_send_user_check == 'no' && $gluu_oxd_id && $got_protection_access_token != false) {
 ?>
 <label><h4><input type='radio' name='radio' id='OpenID' value='Yes' />Login by OpenID Provider </h4></label>
 <br/><label><h4><input type='radio' name='radio' id='base' value='No' />Show login form </h4></label>

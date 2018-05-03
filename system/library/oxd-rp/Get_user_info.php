@@ -11,7 +11,7 @@
 	 *
 	 * @package	  Oxd Library by Gluu
 	 * @category  Library, Api
-	 * @version   3.0.0
+	 * @version   3.1.1
 	 *
 	 * @author    Gluu Inc.          : <https://gluu.org>
 	 * @link      Oxd site           : <https://oxd.gluu.org>
@@ -69,6 +69,10 @@
      * @var string $request_access_token                            This parameter you must get after using get_token_code class
      */
     private $request_access_token = null;
+    /**
+     * @var string $request_access_token                     Access token for each request
+     */
+    private $request_protection_access_token;
     /**
      * Response parameter from oXD-server
      * Showing logedin user information
@@ -138,6 +142,14 @@
     {
         $this->command = 'get_user_info';
     }
+    
+    function getRequest_protection_access_token() {
+        return $this->request_protection_access_token;
+    }
+
+    function setRequest_protection_access_token($request_protection_access_token) {
+        $this->request_protection_access_token = $request_protection_access_token;
+    }  
     /**
      * Protocol parameter to oXD server
      * @return void
@@ -146,7 +158,8 @@
     {
         $this->params = array(
             "oxd_id" => $this->getRequestOxdId(),
-            "access_token" => $this->getRequestAccessToken()
+            "access_token" => $this->getRequestAccessToken(),
+            "protection_access_token"=> $this->getRequest_protection_access_token()
         );
     }
 

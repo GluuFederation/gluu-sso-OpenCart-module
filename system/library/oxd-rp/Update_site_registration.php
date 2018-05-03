@@ -11,7 +11,7 @@
 	 *
 	 * @package	  Oxd Library by Gluu
 	 * @category  Library, Api
-	 * @version   3.0.0
+	 * @version   3.1.1
 	 *
 	 * @author    Gluu Inc.          : <https://gluu.org>
 	 * @link      Oxd site           : <https://oxd.gluu.org>
@@ -113,6 +113,10 @@
      * @var array $request_client_logout_uris
      */
     private $request_client_logout_uris = null;
+    /**
+     * @var string $request_access_token                     Access token for each request
+     */
+    private $request_protection_access_token;
 
     /**
      * Response parameter from oXD-server
@@ -381,6 +385,14 @@
     {
         $this->command = 'update_site_registration';
     }
+    
+    function getRequest_protection_access_token() {
+        return $this->request_protection_access_token;
+    }
+
+    function setRequest_protection_access_token($request_protection_access_token) {
+        $this->request_protection_access_token = $request_protection_access_token;
+    }  
     /**
      * Protocol parameter to oXD server
      * @return void
@@ -401,7 +413,8 @@
             "grant_types" => ["authorization_code"],
             "response_types"=> ["code"],
             "client_secret_expires_at"=> 3080736637943,
-            "client_logout_uris"=> [$this->getRequestClientLogoutUris()]
+            "client_logout_uris"=> [$this->getRequestClientLogoutUris()],
+            "protection_access_token"=> $this->getRequest_protection_access_token()
         );
     }
 

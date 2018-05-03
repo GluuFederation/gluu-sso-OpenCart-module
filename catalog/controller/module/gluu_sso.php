@@ -5,7 +5,7 @@
 	 *
 	 * @package	  OpenID Connect SSO Extension  by Gluu
 	 * @category  Extension for OpenCart
-	 * @version   3.0.0
+	 * @version   3.1.1
 	 *
 	 * @author    Gluu Inc.          : <https://gluu.org>
 	 * @link      Oxd site           : <https://oxd.gluu.org>
@@ -97,7 +97,12 @@ class ControllerModuleGluuSSO extends Controller
             }else{
                 $data['gluu_provider'] = '';
             }
-            $data['login_url'] = $this->login_url();
+            $data['got_protection_access_token'] = $this->get_protection_access_token();
+            if($data['got_protection_access_token'] != false){
+                $data['login_url'] = $this->login_url();
+            }else{
+                $data['login_url'] = "";
+            }
             return $this->show_template ($data);
         }
         else if(!empty($this->request->get['state']) and $this->gluu_is_port_working() and $this->request->get['route'] == 'account/logout'){
@@ -173,7 +178,12 @@ class ControllerModuleGluuSSO extends Controller
                             $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
                             $logout->setRequestSessionState($_SESSION['session_state']);
                             $logout->setRequestState($_SESSION['state']);
-                            $logout->request();
+                            $logout->setRequest_protection_access_token($this->get_protection_access_token());
+                            if($gluu_config['oxd_request_pattern'] == 2){
+                                $logout->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-logout-uri");
+                            } else {
+                                $logout->request();
+                            }
                             unset($_SESSION['user_oxd_access_token']);
                             unset($_SESSION['user_oxd_id_token']);
                             unset($_SESSION['session_state']);
@@ -199,7 +209,7 @@ class ControllerModuleGluuSSO extends Controller
         $this->load->model('module/gluu_sso');
         require_once(DIR_SYSTEM . 'library/oxd-rp/Get_tokens_by_code.php');
         require_once(DIR_SYSTEM . 'library/oxd-rp/Get_user_info.php');
-
+        $gluu_config             = json_decode($this->model_module_gluu_sso->gluu_db_query_select('gluu_config'),true);
         if( isset( $_REQUEST['session_state'] ) ) {
             if (isset($_REQUEST['error']) and strpos($_REQUEST['error'], 'session_selection_required') !== false) {
                 header("Location: " . $this->prompt_login_url('login'));
@@ -218,7 +228,12 @@ class ControllerModuleGluuSSO extends Controller
             $get_tokens_by_code->setRequestOxdId($gluu_oxd_id);
             $get_tokens_by_code->setRequestCode($_REQUEST['code']);
             $get_tokens_by_code->setRequestState($_REQUEST['state']);
-            $get_tokens_by_code->request();
+            $get_tokens_by_code->setRequest_protection_access_token($this->get_protection_access_token());
+            if($gluu_config['oxd_request_pattern'] == 2){
+                $get_tokens_by_code->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-tokens-by-code");
+            } else {
+                $get_tokens_by_code->request();
+            }
 
             $get_tokens_by_code_array = array();
             if(!empty($get_tokens_by_code->getResponseObject()->data->id_token_claims))
@@ -236,7 +251,12 @@ class ControllerModuleGluuSSO extends Controller
             $get_user_info = new Get_user_info();
             $get_user_info->setRequestOxdId($gluu_oxd_id);
             $get_user_info->setRequestAccessToken($get_tokens_by_code->getResponseAccessToken());
-            $get_user_info->request();
+            $get_user_info->setRequest_protection_access_token($this->get_protection_access_token());
+            if($gluu_config['oxd_request_pattern'] == 2){
+                $get_user_info->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-user-info");
+            } else {
+                $get_user_info->request();
+            }
             $get_user_info_array = $get_user_info->getResponseObject()->data->claims;
             $_SESSION['session_in_op'] = $get_tokens_by_code->getResponseIdTokenClaims()->exp[0];
             $_SESSION['user_oxd_id_token'] = $get_tokens_by_code->getResponseIdToken();
@@ -614,12 +634,17 @@ class ControllerModuleGluuSSO extends Controller
 
 
         $get_authorization_url->setRequestScope($gluu_config['config_scopes']);
+        $get_authorization_url->setRequest_protection_access_token($this->get_protection_access_token());
         if($gluu_auth_type != "default"){
             $get_authorization_url->setRequestAcrValues([$gluu_auth_type]);
         }else{
             $get_authorization_url->setRequestAcrValues(null);
         }
-        $get_authorization_url->request();
+        if($gluu_config['oxd_request_pattern'] == 2){
+            $get_authorization_url->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-authorization-url");
+        } else {
+            $get_authorization_url->request();
+        }
 
         return $get_authorization_url->getResponseAuthorizationUrl();
     }
@@ -667,7 +692,12 @@ class ControllerModuleGluuSSO extends Controller
         }else{
             $get_authorization_url->setRequestAcrValues(null);
         }
-        $get_authorization_url->request();
+        $get_authorization_url->setRequest_protection_access_token($this->get_protection_access_token());
+        if($gluu_config['oxd_request_pattern'] == 2){
+            $get_authorization_url->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-authorization-url");
+        } else {
+            $get_authorization_url->request();
+        }
 
         return $get_authorization_url->getResponseAuthorizationUrl();
     }
@@ -733,7 +763,12 @@ class ControllerModuleGluuSSO extends Controller
                             $logout->setRequestPostLogoutRedirectUri($gluu_config['post_logout_redirect_uri']);
                             $logout->setRequestSessionState($_SESSION['session_state']);
                             $logout->setRequestState($_SESSION['state']);
-                            $logout->request();
+                            $logout->setRequest_protection_access_token($this->get_protection_access_token());
+                            if($gluu_config['oxd_request_pattern'] == 2){
+                                $logout->request(trim($gluu_config["gluu_oxd_web_host"],"/")."/get-logout-uri");
+                            } else {
+                                $logout->request();
+                            }
                             unset($_SESSION['user_oxd_access_token']);
                             unset($_SESSION['user_oxd_id_token']);
                             unset($_SESSION['session_state']);
@@ -767,6 +802,31 @@ class ControllerModuleGluuSSO extends Controller
         } else {
             return false;
         }
+    }
+    
+    public function get_protection_access_token(){
+        require_once(DIR_SYSTEM . 'library/oxd-rp/Get_client_access_token.php');
+        $this->load->model('module/gluu_sso');
+        $gluu_config =   json_decode($this->model_module_gluu_sso->gluu_db_query_select("gluu_config"),true);
+        $gluu_other_config = json_decode($this->model_module_gluu_sso->gluu_db_query_select('gluu_other_config'),true);
+        if($gluu_config["has_registration_end_point"] != 1 || $gluu_config["has_registration_end_point"] != true){
+            return null;
+        }
+        $get_client_access_token = new Get_client_access_token();
+        $get_client_access_token->setRequest_client_id($gluu_config['gluu_client_id']);
+        $get_client_access_token->setRequest_client_secret($gluu_config['gluu_client_secret']);
+        $get_client_access_token->setRequestOpHost($gluu_other_config['gluu_provider']);
+
+        if($gluu_config['oxd_request_pattern'] == 2){
+            $status = $get_client_access_token->request(trim($gluu_config['gluu_oxd_web_host'],"/")."/get-client-token");
+        } else {
+            $status = $get_client_access_token->request();
+        }
+        if($status == false){
+            return false;
+        }
+
+        return $get_client_access_token->getResponse_access_token();
     }
 
 }
